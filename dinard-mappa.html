@@ -65,6 +65,35 @@
     .tide-panel.loading { opacity: 0.75; }
     .tide-panel .err { color: var(--bad); font-size: 0.8rem; }
 
+    .weather-now {
+      display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.55rem;
+    }
+    .weather-now .icon { font-size: 1.8rem; line-height: 1; }
+    .weather-now .temp { font-size: 1.35rem; font-weight: 700; }
+    .weather-now .meta { font-size: 0.74rem; color: var(--muted); line-height: 1.35; }
+    .weather-days {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.3rem;
+    }
+    .weather-days .day {
+      background: #1e293b; border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.4rem 0.25rem; text-align: center; font-size: 0.68rem;
+    }
+    .weather-days .day .dname { color: var(--muted); font-weight: 600; margin-bottom: 0.15rem; text-transform: capitalize; }
+    .weather-days .day .ico { font-size: 1.15rem; line-height: 1.2; }
+    .weather-days .day .hi { font-weight: 700; color: var(--text); }
+    .weather-days .day .lo { color: var(--muted); }
+    .weather-days .day .rain { color: var(--hi); font-size: 0.62rem; margin-top: 0.15rem; }
+    .weather-hours {
+      display: flex; gap: 0.3rem; overflow-x: auto; margin-top: 0.5rem;
+      padding-bottom: 0.2rem; -webkit-overflow-scrolling: touch;
+    }
+    .weather-hours .h {
+      flex: 0 0 auto; min-width: 3.1rem; background: #1e293b; border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.35rem 0.3rem; text-align: center; font-size: 0.65rem;
+    }
+    .weather-hours .h .t { color: var(--muted); }
+    .weather-hours .h .v { font-weight: 700; margin-top: 0.1rem; }
+
     .filters { display: flex; flex-wrap: wrap; gap: 0.3rem; padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--border); }
     .filters button {
       border: 1px solid var(--border); background: #0f172a; color: var(--text);
@@ -117,7 +146,7 @@
       <header>
         <h1>Côte d'Émeraude → Mont-Saint-Michel</h1>
         <div class="zone" id="zoneLabel">Zona: …</div>
-        <p id="viewMeta">Scorri la mappa: pin, lista e maree seguono la vista.</p>
+        <p id="viewMeta">Scorri la mappa: pin, lista, maree e meteo seguono la vista.</p>
         <div class="zone-chips" id="zoneChips"></div>
       </header>
 
@@ -125,6 +154,12 @@
         <h2 id="tideTitle">🌊 Maree</h2>
         <div id="tideBody">Caricamento…</div>
         <p class="tide-note">Open-Meteo sul centro mappa. Indicativo — non per navigazione (usa SHOM).</p>
+      </div>
+
+      <div class="tide-panel loading" id="weatherPanel">
+        <h2 id="weatherTitle">🌤️ Meteo</h2>
+        <div id="weatherBody">Caricamento…</div>
+        <p class="tide-note">Previsione 5 giorni (Open-Meteo). Si aggiorna spostando la mappa.</p>
       </div>
 
       <div class="filters" id="filters"></div>
@@ -179,11 +214,30 @@
 
     let tideState = null;
     let tideLat = null, tideLng = null;
+    let weatherState = null;
+    let weatherLat = null, weatherLng = null;
     let sunLat = 48.63, sunLng = -2.05;
     let visibleIds = new Set();
     let activeCats = new Set(categories.map(c => c.id));
     let moveTimer = null;
     let activeZoneId = "dinard";
+
+    // WMO weather interpretation codes → emoji + label IT
+    function wmoInfo(code) {
+      const c = code ?? 0;
+      if (c === 0) return { icon: "☀️", label: "Sereno" };
+      if (c === 1) return { icon: "🌤️", label: "Preval. sereno" };
+      if (c === 2) return { icon: "⛅", label: "Parz. nuvoloso" };
+      if (c === 3) return { icon: "☁️", label: "Nuvoloso" };
+      if (c === 45 || c === 48) return { icon: "🌫️", label: "Nebbia" };
+      if (c >= 51 && c <= 57) return { icon: "🌦️", label: "Pioviggine" };
+      if (c >= 61 && c <= 67) return { icon: "🌧️", label: "Pioggia" };
+      if (c >= 71 && c <= 77) return { icon: "🌨️", label: "Neve" };
+      if (c >= 80 && c <= 82) return { icon: "🌧️", label: "Rovesci" };
+      if (c === 85 || c === 86) return { icon: "🌨️", label: "Rovesci neve" };
+      if (c >= 95) return { icon: "⛈️", label: "Temporale" };
+      return { icon: "🌡️", label: "—" };
+    }
 
     // ——— Time helpers ———
     function fmtTime(d) {
@@ -384,6 +438,115 @@
       }
     }
 
+    async function loadWeather(lat, lng, force = false) {
+      if (!force && weatherLat != null && haversineKm(weatherLat, weatherLng, lat, lng) < 6) {
+        return;
+      }
+      const panel = document.getElementById("weatherPanel");
+      panel.classList.add("loading");
+      const z = zoneAt(lat, lng);
+      document.getElementById("weatherTitle").textContent = `🌤️ Meteo · ${z.name}`;
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(4)}&longitude=${lng.toFixed(4)}` +
+          `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,precipitation` +
+          `&hourly=temperature_2m,weather_code,precipitation_probability` +
+          `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max` +
+          `&forecast_days=5&timezone=Europe%2FParis`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        weatherState = data;
+        weatherLat = lat;
+        weatherLng = lng;
+        renderWeatherPanel();
+      } catch (err) {
+        panel.classList.remove("loading");
+        document.getElementById("weatherBody").innerHTML = `<p class="err">Errore meteo: ${err.message}</p>`;
+      }
+    }
+
+    function windArrow(deg) {
+      if (deg == null) return "";
+      // meteorological: wind FROM direction
+      const dirs = ["N", "NE", "E", "SE", "S", "SO", "O", "NO"];
+      return dirs[Math.round(deg / 45) % 8];
+    }
+
+    function renderWeatherPanel() {
+      const panel = document.getElementById("weatherPanel");
+      const body = document.getElementById("weatherBody");
+      panel.classList.remove("loading");
+      if (!weatherState) return;
+      const z = zoneAt(weatherLat, weatherLng);
+      document.getElementById("weatherTitle").textContent = `🌤️ Meteo · ${z.name}`;
+      const cur = weatherState.current;
+      const daily = weatherState.daily;
+      const hourly = weatherState.hourly;
+      const w = wmoInfo(cur.weather_code);
+      const feel = cur.apparent_temperature != null ? Math.round(cur.apparent_temperature) : "—";
+      const wind = cur.wind_speed_10m != null ? Math.round(cur.wind_speed_10m) : "—";
+      const hum = cur.relative_humidity_2m != null ? Math.round(cur.relative_humidity_2m) : "—";
+      const precip = cur.precipitation != null ? cur.precipitation : 0;
+
+      // next ~12 hours from now
+      const now = new Date();
+      const hourCards = [];
+      for (let i = 0; i < hourly.time.length && hourCards.length < 12; i++) {
+        const t = parseLocalISO(hourly.time[i]);
+        if (t < now - 30 * 60000) continue;
+        const wi = wmoInfo(hourly.weather_code[i]);
+        const pop = hourly.precipitation_probability?.[i];
+        hourCards.push(`<div class="h">
+          <div class="t">${fmtTime(t)}</div>
+          <div class="ico">${wi.icon}</div>
+          <div class="v">${Math.round(hourly.temperature_2m[i])}°</div>
+          <div class="t">${pop != null ? pop + "%" : ""}</div>
+        </div>`);
+      }
+
+      const dayCards = daily.time.slice(0, 5).map((d, i) => {
+        const wi = wmoInfo(daily.weather_code[i]);
+        const name = i === 0 ? "Oggi" : parseLocalISO(d + "T12:00").toLocaleDateString("it-IT", {
+          weekday: "short", timeZone: TZ,
+        });
+        const rain = daily.precipitation_sum[i];
+        const pop = daily.precipitation_probability_max?.[i];
+        return `<div class="day">
+          <div class="dname">${name}</div>
+          <div class="ico">${wi.icon}</div>
+          <div class="hi">${Math.round(daily.temperature_2m_max[i])}°</div>
+          <div class="lo">${Math.round(daily.temperature_2m_min[i])}°</div>
+          <div class="rain">${rain > 0.05 ? rain.toFixed(1) + " mm" : (pop ? pop + "% 💧" : "—")}</div>
+        </div>`;
+      }).join("");
+
+      body.innerHTML = `
+        <div class="weather-now">
+          <div class="icon">${w.icon}</div>
+          <div>
+            <div class="temp">${Math.round(cur.temperature_2m)}° · ${w.label}</div>
+            <div class="meta">Percepita ${feel}° · Umidità ${hum}% · Vento ${wind} km/h ${windArrow(cur.wind_direction_10m)}${precip > 0 ? ` · Pioggia ${precip} mm` : ""}</div>
+          </div>
+        </div>
+        <div class="weather-days">${dayCards}</div>
+        <div class="weather-hours">${hourCards.join("")}</div>
+      `;
+
+      // enrich map chip with weather if tides already rendered
+      const chip = document.getElementById("mapTideChip");
+      if (chip && tideState) {
+        const base = chip.textContent.replace(/\s*·\s*☀️.*$/, "").replace(/\s*·\s*\d+°.*/, "");
+        chip.textContent = `${base} · ${w.icon} ${Math.round(cur.temperature_2m)}°`;
+      } else if (chip && !tideState) {
+        chip.textContent = `🌤️ ${w.icon} ${Math.round(cur.temperature_2m)}° · ${z.name}`;
+      }
+    }
+
+    function loadClimate(lat, lng, force = false) {
+      loadTides(lat, lng, force);
+      loadWeather(lat, lng, force);
+    }
+
     function renderTidePanel() {
       const panel = document.getElementById("tidePanel");
       const body = document.getElementById("tideBody");
@@ -417,7 +580,12 @@
         <div class="tide-days">${extremes.filter(e => e.date > new Date() - 36e5).slice(0, 8).map(e =>
           `<div class="row"><b>${e.type === "H" ? "▲ Alta" : "▼ Bassa"}</b><span>${fmtDay(e.date)} ${fmtTime(e.date)} · ${e.height.toFixed(2)} m</span></div>`
         ).join("")}</div>`;
-      chip.textContent = `🌊 ${phase.label} · ${z.name} · 🌇 ${fmtTime(sun.sunset)}`;
+      let chipTxt = `🌊 ${phase.label} · ${z.name} · 🌇 ${fmtTime(sun.sunset)}`;
+      if (weatherState?.current) {
+        const wi = wmoInfo(weatherState.current.weather_code);
+        chipTxt += ` · ${wi.icon} ${Math.round(weatherState.current.temperature_2m)}°`;
+      }
+      chip.textContent = chipTxt;
     }
 
     // ——— Visibility by viewport + zoom ———
@@ -533,7 +701,7 @@
     function onViewChange() {
       applyVisibility();
       const c = map.getCenter();
-      loadTides(c.lat, c.lng, false);
+      loadClimate(c.lat, c.lng, false);
     }
 
     map.on("moveend", () => {
@@ -570,8 +738,8 @@
           const z = ZONES.find(x => x.id === btn.dataset.id);
           if (!z) return;
           map.setView([z.lat, z.lng], z.zoom);
-          // force tide reload for zone jump
-          setTimeout(() => loadTides(z.lat, z.lng, true), 300);
+          // force climate reload for zone jump
+          setTimeout(() => loadClimate(z.lat, z.lng, true), 300);
         });
       });
     }
@@ -613,12 +781,11 @@
     renderFilters();
     renderZoneChips();
     applyVisibility();
-    loadTides(48.635, -2.05, true);
+    loadClimate(48.635, -2.05, true);
 
     setInterval(() => {
-      if (!tideState) return;
       const c = map.getCenter();
-      loadTides(c.lat, c.lng, false);
+      loadClimate(c.lat, c.lng, false);
     }, 5 * 60 * 1000);
   </script>
 </body>
