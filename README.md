@@ -1,30 +1,27 @@
-# Dinard — mappa interattiva
+# Côte d'Émeraude → Mont-Saint-Michel
 
-Guida locale per Dinard e Côte d'Émeraude: spiagge, maree, tramonti, mercati, ristoranti, ferry, colonnine EV.
+Mappa interattiva: **Saint-Jacut / Cap Fréhel** → Dinard → **Saint-Malo** → **Cancale** → **Mont-Saint-Michel**.
 
 ## Live
 
 **https://fmondora.github.io/dinard/**
 
-I dati si aggiornano da soli nel browser:
-- **Maree** — Open-Meteo Marine API (previsione ~3 giorni, refresh ogni 5 min)
-- **Alba / tramonto / golden hour** — calcolati sul posto (SunCalc)
-- **Badge spiagge** — consiglio favorevole/sfavorevole in base alla marea attuale
+### Cosa fa
+- **Scorri la mappa** → cambiano pin, lista laterale, zona, maree, alba/tramonto
+- Chip zona in alto (Fréhel, St-Jacut, Dinard, St-Malo, Cancale, Mont…)
+- Zoom out = solo punti principali; zoom in = dettaglio
+- Maree Open-Meteo sul **centro della mappa** (si aggiornano spostandoti di ~4+ km)
+- Badge spiagge in base alla marea attuale
+- Tramonti con golden hour locale
 
-## Offline / file
-
+### File
 | File | Uso |
 |------|-----|
-| `index.html` / `dinard-mappa.html` | Mappa interattiva |
-| `dinard-google-mymaps.csv` | Import in [Google My Maps](https://www.google.com/mymaps) |
-| `dinard-mappa.kml` | Import My Maps / Google Earth |
+| `index.html` | App web |
+| `dinard-google-mymaps.csv` / `.kml` | Import Google My Maps (subset) |
+| `places_data.json` | Dataset punti |
 
-## Sviluppo locale
-
-Apri `index.html` nel browser (serve internet per le maree).
-
+### Aggiornare e pubblicare
 ```bash
-# opzionale: server locale
-python3 -m http.server 8080
-# → http://localhost:8080
+git add -A && git commit -m "update" && git push
 ```
