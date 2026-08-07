@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Dinard — mappa · maree · tramonti</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: #334155;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --hi: #3b82f6;
+      --lo: #a78bfa;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: var(--bg); color: var(--text); }
+    #app { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; height: 100%; }
+    #sidebar { overflow: auto; border-right: 1px solid var(--border); background: var(--panel); padding: 0 0 2rem; }
+    #map { height: 100%; min-height: 45vh; }
+    header { padding: 1rem 1.1rem 0.6rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--panel); z-index: 3; }
+    header h1 { margin: 0 0 0.2rem; font-size: 1.1rem; }
+    header p { margin: 0; font-size: 0.78rem; color: var(--muted); line-height: 1.35; }
+
+    .tide-panel {
+      margin: 0.75rem 1rem; padding: 0.85rem; border-radius: 12px;
+      background: #0f172a; border: 1px solid var(--border);
+    }
+    .tide-panel h2 { margin: 0 0 0.5rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+    .tide-now { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .tide-now .phase { font-size: 1.05rem; font-weight: 700; }
+    .tide-now .level { font-size: 0.9rem; color: var(--accent); }
+    .tide-bar {
+      height: 10px; border-radius: 999px; background: linear-gradient(90deg, var(--lo), #1e3a5f, var(--hi));
+      position: relative; margin: 0.4rem 0 0.55rem; overflow: visible;
+    }
+    .tide-bar .knob {
+      position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px;
+      border-radius: 50%; background: #fff; border: 2px solid var(--accent);
+      box-shadow: 0 0 0 3px rgba(56,189,248,.25);
+      transition: left .4s ease;
+    }
+    .tide-extremes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; font-size: 0.78rem; }
+    .tide-extremes div { background: #1e293b; border-radius: 8px; padding: 0.45rem 0.55rem; border: 1px solid var(--border); }
+    .tide-extremes .lbl { color: var(--muted); font-size: 0.68rem; text-transform: uppercase; }
+    .tide-extremes .hi .val { color: var(--hi); font-weight: 700; }
+    .tide-extremes .lo .val { color: var(--lo); font-weight: 700; }
+    .sun-row { display: flex; gap: 0.5rem; margin-top: 0.55rem; font-size: 0.78rem; flex-wrap: wrap; }
+    .sun-row span { background: #1e293b; border: 1px solid var(--border); border-radius: 999px; padding: 0.25rem 0.55rem; }
+    .advice { margin-top: 0.6rem; font-size: 0.78rem; line-height: 1.4; }
+    .advice .ok { color: var(--ok); }
+    .advice .warn { color: var(--warn); }
+    .advice .bad { color: var(--bad); }
+    .tide-days { margin-top: 0.55rem; display: flex; flex-direction: column; gap: 0.3rem; max-height: 140px; overflow: auto; }
+    .tide-days .row { display: grid; grid-template-columns: 4.2rem 1fr; gap: 0.35rem; font-size: 0.72rem; color: var(--muted); }
+    .tide-days .row b { color: var(--text); font-weight: 600; }
+    .tide-note { margin-top: 0.45rem; font-size: 0.68rem; color: var(--muted); line-height: 1.3; }
+    .tide-panel.loading { opacity: 0.7; }
+    .tide-panel .err { color: var(--bad); font-size: 0.8rem; }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); }
+    .filters button {
+      border: 1px solid var(--border); background: #0f172a; color: var(--text);
+      border-radius: 999px; padding: 0.3rem 0.6rem; font-size: 0.7rem; cursor: pointer;
+    }
+    .filters button.active { background: var(--accent); color: #0f172a; border-color: var(--accent); font-weight: 600; }
+    .cat { padding: 0.75rem 1.1rem 0.2rem; }
+    .cat h2 { margin: 0 0 0.45rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    .item {
+      display: block; width: 100%; text-align: left; border: 0; background: transparent;
+      color: var(--text); padding: 0.5rem 0.35rem; border-radius: 8px; cursor: pointer;
+      border-bottom: 1px solid rgba(51,65,85,0.5);
+    }
+    .item:hover { background: #0f172a; }
+    .item .t { font-size: 0.88rem; font-weight: 600; display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }
+    .item .d { font-size: 0.74rem; color: var(--muted); margin-top: 0.18rem; line-height: 1.35; }
+    .item a.gmaps { color: var(--accent); font-size: 0.7rem; text-decoration: none; display: inline-block; margin-top: 0.2rem; }
+    .badge {
+      font-size: 0.62rem; font-weight: 700; padding: 0.12rem 0.4rem; border-radius: 999px;
+      text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .badge.ok { background: rgba(34,197,94,.2); color: var(--ok); }
+    .badge.warn { background: rgba(245,158,11,.2); color: var(--warn); }
+    .badge.bad { background: rgba(239,68,68,.2); color: var(--bad); }
+    .badge.hi { background: rgba(59,130,246,.2); color: var(--hi); }
+    .badge.lo { background: rgba(167,139,250,.2); color: var(--lo); }
+    .badge.sun { background: rgba(251,146,60,.2); color: #fb923c; }
+    .legend { padding: 0.7rem 1.1rem; font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
+    .popup h3 { margin: 0 0 0.3rem; font-size: 0.95rem; }
+    .popup p { margin: 0 0 0.35rem; font-size: 0.8rem; line-height: 1.4; }
+    .popup .tide-box {
+      margin: 0.4rem 0; padding: 0.45rem 0.55rem; border-radius: 8px;
+      background: #f1f5f9; font-size: 0.78rem; line-height: 1.35;
+    }
+    .popup a { color: #0284c7; font-size: 0.78rem; }
+    .map-tide {
+      position: absolute; z-index: 1000; top: 12px; left: 50%; transform: translateX(-50%);
+      background: rgba(15,23,42,.92); color: #fff; border: 1px solid var(--border);
+      border-radius: 999px; padding: 0.4rem 0.85rem; font-size: 0.78rem; font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0,0,0,.35); white-space: nowrap; max-width: 92vw; overflow: hidden; text-overflow: ellipsis;
+    }
+    @media (max-width: 800px) {
+      #app { grid-template-columns: 1fr; grid-template-rows: 46vh 1fr; }
+      #sidebar { order: 2; }
+      #map { order: 1; position: relative; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <header>
+        <h1>Dinard & Côte d'Émeraude</h1>
+        <p>Maree live · tramonti · spiagge · ferry · EV. Tocca un pin.</p>
+      </header>
+
+      <div class="tide-panel loading" id="tidePanel">
+        <h2>🌊 Maree · Saint-Malo / Dinard</h2>
+        <div id="tideBody">Caricamento previsione…</div>
+        <p class="tide-note">Modello Open-Meteo (livello mare). Indicativo — per navigazione usa SHOM / maree ufficiali. Coefficienti e orari possono variare localmente.</p>
+      </div>
+
+      <div class="filters" id="filters"></div>
+      <div id="list"></div>
+      <div class="legend">
+        Badge spiaggia = consiglio <strong>adesso</strong> in base alla marea.
+        Tramonti: orario calcolato per oggi (Europe/Paris).
+      </div>
+    </aside>
+    <div id="map" style="position:relative">
+      <div class="map-tide" id="mapTideChip">Marea…</div>
+    </div>
+  </div>
+
+  <script>
+    const TZ = "Europe/Paris";
+    const TIDE_LAT = 48.65, TIDE_LNG = -2.02;
+    const SUN_LAT = 48.633, SUN_LNG = -2.055;
+
+    const categories = [
+      { id: "you", label: "📍 Qui", color: "#ef4444" },
+      { id: "beach", label: "🏖️ Spiagge", color: "#3b82f6" },
+      { id: "nude", label: " Nudist", color: "#f97316" },
+      { id: "sunset", label: "🌅 Tramonti", color: "#fb923c" },
+      { id: "market", label: "🛒 Mercati", color: "#22c55e" },
+      { id: "food", label: "⭐ Ristoranti", color: "#eab308" },
+      { id: "oyster", label: "🦪 Ostriche", color: "#06b6d4" },
+      { id: "center", label: "🏛️ Centro", color: "#a855f7" },
+      { id: "shop", label: "🛍️ Negozi", color: "#ec4899" },
+      { id: "ferry", label: "⛴️ Ferry", color: "#64748b" },
+      { id: "walk", label: "🥾 Camminate", color: "#14b8a6" },
+      { id: "ev", label: "⚡ Ricarica EV", color: "#10b981" },
+    ];
+
+    /** tideProfile: how this beach behaves with tide */
+    const places = [
+      { cat: "you", name: "Tu sei qui", lat: 48.618866, lng: -2.037716,
+        desc: "Coordinate di partenza: 48.618866, −2.037716." },
+
+      { cat: "beach", name: "Plage de l'Écluse", lat: 48.6364681, lng: -2.0553620,
+        desc: "Spiaggia-icona: tende a strisce, casinò, centro balneare. La più vivace.",
+        tideProfile: "swim" },
+      { cat: "beach", name: "Plage du Prieuré", lat: 48.6256661, lng: -2.0532040,
+        desc: "Famiglie, parco Port-Breton, piscina d'acqua di mare a marea bassa. Vista Saint-Malo.",
+        tideProfile: "pool_low" },
+      { cat: "beach", name: "Plage de Saint-Énogat", lat: 48.6391009, lng: -2.0693179,
+        desc: "Più intima, rock pools, atmosfera da villaggio.",
+        tideProfile: "rocks" },
+      { cat: "beach", name: "Plage de Port-Blanc", lat: 48.6365263, lng: -2.0816410,
+        desc: "La più selvaggia delle 4 di Dinard. Confine con Saint-Lunaire.",
+        tideProfile: "wild" },
+      { cat: "beach", name: "Grande Plage Saint-Lunaire", lat: 48.6377817, lng: -2.1099974,
+        desc: "~10 min da Dinard. Ampia sabbia.",
+        tideProfile: "swim" },
+      { cat: "beach", name: "Île de Cézembre", lat: 48.6768428, lng: -2.0715022,
+        desc: "Solo in battello (~20 min). Spiaggia a sud. Nord interdetto (WWII).",
+        tideProfile: "island" },
+
+      { cat: "nude", name: "Fourberie — naturista (Saint-Lunaire)", lat: 48.6352882, lng: -2.0850938,
+        desc: "Naturismo TOLLERATO caletta a OVEST dopo le rocce. Non ufficiale. Cani vietati.",
+        tideProfile: "wild" },
+      { cat: "nude", name: "Chevrets — naturista (Saint-Coulomb)", lat: 48.6926072, lng: -1.9418849,
+        desc: "Zona naturista lato est / Meinga. ~25–30 min auto.",
+        tideProfile: "swim" },
+
+      // Tramonti (verificati geograficamente: ovest / belvedere / luce serale)
+      { cat: "sunset", name: "🌅 Pointe du Moulinet", lat: 48.6369843, lng: -2.0494501,
+        desc: "IL belvedere di Dinard. 360° su baia, Saint-Malo, Cézembre. Golden hour e tramonto estivi." },
+      { cat: "sunset", name: "🌅 Plage de Port-Blanc (guardare ovest)", lat: 48.6365263, lng: -2.0816410,
+        desc: "Spiaggia più a ovest di Dinard: sole che cala verso Saint-Lunaire / oceano. Uno dei migliori per il sole in mare." },
+      { cat: "sunset", name: "🌅 Pointe du Décollé (Saint-Lunaire)", lat: 48.6449326, lng: -2.1125937,
+        desc: "Promontorio ovest: tramonto classico sulla costa. ~12 min da Dinard. Sentiero costiero GR34." },
+      { cat: "sunset", name: "🌅 Grande Plage Saint-Lunaire", lat: 48.6377817, lng: -2.1099974,
+        desc: "Ampia spiaggia aperta: luce serale, bar sulla diga, sole basso a ovest/nord-ovest in estate." },
+      { cat: "sunset", name: "🌅 Plage de l'Écluse — luce su Saint-Malo", lat: 48.6364681, lng: -2.0553620,
+        desc: "Non è tramonto in mare (vista NE), ma la luce dorata sulle mura di Saint-Malo e i colori sulla baia sono spettacolari." },
+      { cat: "sunset", name: "🌅 Promenade du Clair de Lune", lat: 48.6303758, lng: -2.0527440,
+        desc: "Passeggiata serale iconica. Villa Belle Époque illuminate, riflessi sulla Rance, atmosfera da film." },
+      { cat: "sunset", name: "🌅 Pointe de la Vicomté", lat: 48.6274337, lng: -2.0330046,
+        desc: "Vista sull'estuario della Rance e il barrage. Tramonto sull'acqua, meno affollato. Vicino a te." },
+      { cat: "sunset", name: "🌅 Remparts Saint-Malo (sera)", lat: 48.6495, lng: -2.0258,
+        desc: "Mura Intra-Muros: tramonto verso ovest sopra il porto e Dinard di fronte. Combinabile col ferry di ritorno." },
+
+      { cat: "market", name: "Halles & Marché Dinard", lat: 48.6320459, lng: -2.0580392,
+        desc: "Halles: ogni mattina 7:30–13:30. Esterno mar/gio/sab: set–giu 9–12:30 (sab→13); lug–ago 8:30–14." },
+      { cat: "market", name: "Marché Saint-Énogat", lat: 48.6360000, lng: -2.0679661,
+        desc: "Solo lug–ago: mercoledì 9:00–12:30, Place du Calvaire." },
+      { cat: "oyster", name: "Marché aux Huîtres Cancale (MUST)", lat: 48.6707685, lng: -1.8513142,
+        desc: "Port de la Houle. 8 produttori, tutti i giorni. Degustazione sul posto, vista Mont-Saint-Michel." },
+      { cat: "food", name: "Pourquoi Pas ★ (Castelbrac)", lat: 48.6344466, lng: -2.0490168,
+        desc: "1 stella Michelin, chef Julien Hennote. Prenotare. €€€€" },
+      { cat: "food", name: "Didier Méril", lat: 48.6274381, lng: -2.0555345,
+        desc: "1 Pl. du Général de Gaulle. Vista baia del Prieuré. €€€" },
+      { cat: "food", name: "La Passerelle", lat: 48.6318335, lng: -2.0520607,
+        desc: "3 Avenue George V. Vista cale, pesce." },
+      { cat: "food", name: "La Vallée", lat: 48.6362639, lng: -2.0484626,
+        desc: "6 Avenue George V. Sopra la cale del Bec de la Vallée. €€" },
+      { cat: "food", name: "Café de la Plage (Énogat)", lat: 48.6364062, lng: -2.0678126,
+        desc: "66 Bd Albert Lacroix. Atmosfera rilassata sul mare." },
+      { cat: "food", name: "Lou à la plage", lat: 48.6353790, lng: -2.0551035,
+        desc: "Ingresso diga Écluse / Esplanade Jacques Chirac." },
+      { cat: "center", name: "Centre Dinard (Place République)", lat: 48.6334184, lng: -2.0561911,
+        desc: "Cuore commerciale, boutique, gallerie." },
+      { cat: "shop", name: "Boulevard Féart", lat: 48.6325, lng: -2.0550,
+        desc: "Asse shopping storico." },
+      { cat: "center", name: "Saint-Malo Intra-Muros", lat: 48.6487018, lng: -2.0199432,
+        desc: "Città fortificata. 10 min in ferry." },
+      { cat: "center", name: "Cancale", lat: 48.6773205, lng: -1.8645809,
+        desc: "Capitale delle ostriche. ~30 min auto." },
+      { cat: "ferry", name: "Ferry Corsaire (Clair de Lune)", lat: 48.6339345, lng: -2.0500957,
+        desc: "→ St-Malo (~10'), Cézembre (~20'), escursioni. compagniecorsaire.com" },
+      { cat: "ferry", name: "Cale du Bec de la Vallée", lat: 48.6357303, lng: -2.0475675,
+        desc: "Embarcadère Dinard (alta stagione)." },
+      { cat: "ferry", name: "Ferry St-Malo — Cale de Dinan", lat: 48.6456217, lng: -2.0272486,
+        desc: "Ai piedi delle mura. Bus de mer ↔ Dinard." },
+      { cat: "walk", name: "Promenade du Clair de Lune", lat: 48.6303758, lng: -2.0527440,
+        desc: "~2 km Prieuré → Bec de la Vallée. Facile, iconica." },
+      { cat: "walk", name: "Pointe du Moulinet", lat: 48.6369843, lng: -2.0494501,
+        desc: "Belvedere 360°. Ideale al tramonto." },
+      { cat: "walk", name: "GR34 Écluse → Saint-Lunaire", lat: 48.6364681, lng: -2.0553620,
+        desc: "~8 km, 1h30–2h costiero." },
+
+      { cat: "ev", name: "⚡ Sodetrel — Place Paul Crolard (Halles)", lat: 48.6314689, lng: -2.0582472,
+        desc: "Type2 + TypeE, 2 stalli, 24/7. Centro Dinard, vicino al mercato." },
+      { cat: "ev", name: "⚡ Sodetrel — Rue du Bois Met", lat: 48.6221361, lng: -2.0548934,
+        desc: "Type2 + TypeE, 2 stalli, 24/7. Sud centro Dinard." },
+      { cat: "ev", name: "⚡ Sodetrel — Rue Gouyon-Matignon", lat: 48.6237692, lng: -2.0661953,
+        desc: "Type2 + TypeE, 2 stalli, 24/7. Quartiere Saint-Alexandre." },
+      { cat: "ev", name: "⚡ Intermarché Pleurtuit", lat: 48.6104698, lng: -2.0625536,
+        desc: "8× Type2 7 kW. Utile in spesa. ~2.5 km." },
+      { cat: "ev", name: "⚡ Freshmile — La Richardais", lat: 48.609489, lng: -2.056644,
+        desc: "Type2 + TypeE. Rue de l'Hermitage." },
+      { cat: "ev", name: "⚡ EDF — Barrage de la Rance", lat: 48.6168878, lng: -2.028536,
+        desc: "8 stalli. Presso la diga della Rance." },
+      { cat: "ev", name: "⚡ SDE35 — Digue des Bas-Sablons (St-Malo)", lat: 48.6359619, lng: -2.0226844,
+        desc: "10 stalli. Saint-Servan, lato St-Malo." },
+      { cat: "ev", name: "⚡ Power Dot — Av. Briand (St-Malo) rapida", lat: 48.6488774, lng: -1.9969609,
+        desc: "CCS fino a ~100–187 kW, 11 stalli. Ricarica rapida." },
+      { cat: "ev", name: "⚡ IZIVIA — Rue Salvador Allende (St-Malo) 150 kW", lat: 48.6345536, lng: -1.9901052,
+        desc: "CCS 150 kW + Type2. 3 stalli." },
+      { cat: "ev", name: "⚡ IZIVIA — Launay-Breton (St-Malo) 150 kW", lat: 48.625893, lng: -1.9906068,
+        desc: "CCS/CHAdeMO/Type2. Zona Madeleine." },
+      { cat: "ev", name: "⚡ IZIVIA — Rue Claude Chapel 200 kW", lat: 48.6223258, lng: -1.9861476,
+        desc: "CCS fino a 200 kW. Una delle più rapide vicine." },
+      { cat: "ev", name: "⚡ DRIVECO — Saint-Briac (Bd de la Houle)", lat: 48.6315578, lng: -2.1362745,
+        desc: "8 stalli. Utile se vai a ovest sulla costa." },
+      { cat: "ev", name: "⚡ Ionity Plouër-sur-Rance 350 kW", lat: 48.5308276, lng: -2.012744,
+        desc: "6× CCS 350 kW. Autostrada A84/N176, ~12 km. Ideale per ripartire." },
+      { cat: "ev", name: "⚡ Power Dot — Saint-Méloir-des-Ondes 200 kW", lat: 48.6389187, lng: -1.9112221,
+        desc: "CCS 200 kW, 5 stalli. Verso Cancale." },
+    ];
+
+    // ——— State ———
+    let tideState = null; // { times, heights, extremes, now, phase, fraction, minH, maxH }
+    const active = new Set(categories.map(c => c.id));
+
+    // ——— Helpers ———
+    function fmtTime(d) {
+      return d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", timeZone: TZ });
+    }
+    function fmtDay(d) {
+      return d.toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short", timeZone: TZ });
+    }
+    function parseLocalISO(iso) {
+      // open-meteo returns local times without offset when timezone=Europe/Paris
+      // treat as Paris wall time
+      const [date, time] = iso.split("T");
+      const [y, m, day] = date.split("-").map(Number);
+      const [hh, mm] = time.split(":").map(Number);
+      // Convert Paris local → Date via formatter trick
+      // Use approximate: construct UTC then adjust is hard; use Temporal if available
+      const guess = new Date(Date.UTC(y, m - 1, day, hh, mm));
+      // Paris offset: use Intl to find offset for that moment
+      const fmt = new Intl.DateTimeFormat("en-US", {
+        timeZone: TZ, timeZoneName: "shortOffset",
+        year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", hour12: false,
+      });
+      // Binary search not needed: for France summer +2 winter +1
+      // Better approach: format parts of a candidate
+      function offsetMinAt(utcMs) {
+        const parts = new Intl.DateTimeFormat("en-GB", {
+          timeZone: TZ, timeZoneName: "longOffset",
+          year: "numeric", month: "2-digit", day: "2-digit",
+          hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false,
+        }).formatToParts(new Date(utcMs));
+        const tz = parts.find(p => p.type === "timeZoneName")?.value || "GMT+0";
+        const m = tz.match(/GMT([+-])(\d+)(?::(\d+))?/);
+        if (!m) return 0;
+        const sign = m[1] === "+" ? 1 : -1;
+        return sign * (parseInt(m[2], 10) * 60 + parseInt(m[3] || "0", 10));
+      }
+      // Want local y-m-d hh:mm in Paris = UTC - offset
+      // Iterate once: assume summer
+      let utc = Date.UTC(y, m - 1, day, hh - 2, mm);
+      let off = offsetMinAt(utc);
+      utc = Date.UTC(y, m - 1, day, 0, 0) + (hh * 60 + mm - off) * 60000;
+      // refine
+      off = offsetMinAt(utc);
+      utc = Date.UTC(y, m - 1, day, 0, 0) + (hh * 60 + mm - off) * 60000;
+      return new Date(utc);
+    }
+
+    function gmapsUrl(p) {
+      return `https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lng}`;
+    }
+
+    function sunTimes(date = new Date()) {
+      const t = SunCalc.getTimes(date, SUN_LAT, SUN_LNG);
+      return {
+        sunrise: t.sunrise,
+        sunset: t.sunset,
+        goldenStart: new Date(t.sunset.getTime() - 60 * 60000),
+        goldenEnd: new Date(t.sunset.getTime() + 20 * 60000),
+      };
+    }
+
+    // ——— Tide logic ———
+    function findExtremes(times, heights) {
+      const extremes = [];
+      for (let i = 1; i < heights.length - 1; i++) {
+        const a = heights[i - 1], b = heights[i], c = heights[i + 1];
+        if (a == null || b == null || c == null) continue;
+        if (b > a && b > c) extremes.push({ type: "H", time: times[i], height: b, date: parseLocalISO(times[i]) });
+        if (b < a && b < c) extremes.push({ type: "L", time: times[i], height: b, date: parseLocalISO(times[i]) });
+      }
+      return extremes;
+    }
+
+    function interpolateNow(times, heights, now = new Date()) {
+      const dates = times.map(parseLocalISO);
+      let i = 0;
+      while (i < dates.length - 1 && dates[i + 1] <= now) i++;
+      if (i >= dates.length - 1) {
+        return { height: heights[heights.length - 1], fraction: 1, idx: i };
+      }
+      if (now <= dates[0]) {
+        return { height: heights[0], fraction: 0, idx: 0 };
+      }
+      const t0 = dates[i].getTime(), t1 = dates[i + 1].getTime();
+      const f = (now.getTime() - t0) / (t1 - t0);
+      const h = heights[i] + f * (heights[i + 1] - heights[i]);
+      return { height: h, fraction: f, idx: i };
+    }
+
+    function phaseBetween(extremes, now = new Date()) {
+      let prev = null, next = null;
+      for (const e of extremes) {
+        if (e.date <= now) prev = e;
+        if (e.date > now && !next) next = e;
+      }
+      if (!prev || !next) return { label: "—", rising: null, toNextMin: null, prev, next };
+      const rising = prev.type === "L"; // after low → rising to high
+      const toNextMin = Math.round((next.date - now) / 60000);
+      const span = next.date - prev.date;
+      const prog = span > 0 ? (now - prev.date) / span : 0;
+      let label;
+      if (rising) {
+        if (prog < 0.25) label = "Bassa in risalita";
+        else if (prog < 0.55) label = "Marea montante";
+        else if (prog < 0.85) label = "Verso alta marea";
+        else label = "Quasi alta";
+      } else {
+        if (prog < 0.25) label = "Alta in discesa";
+        else if (prog < 0.55) label = "Marea discendente";
+        else if (prog < 0.85) label = "Verso bassa marea";
+        else label = "Quasi bassa";
+      }
+      return { label, rising, toNextMin, prev, next, prog };
+    }
+
+    /**
+     * fraction 0 = low extreme of day range, 1 = high
+     * score per beach profile: ok | warn | bad
+     */
+    function beachAdvice(profile, phase, fraction) {
+      // fraction: 0 low … 1 high relative to forecast range
+      const rising = phase.rising;
+      const nearHigh = fraction >= 0.7;
+      const nearLow = fraction <= 0.3;
+      const mid = !nearHigh && !nearLow;
+
+      const windows = {
+        swim: {
+          ok: nearHigh || (mid && rising),
+          warn: mid && !rising,
+          bad: nearLow,
+          okText: "Buona per bagno: acqua più vicina e profonda.",
+          warnText: "Discreta: marea in calo, distanze maggiori.",
+          badText: "Sconsigliato bagno comodo: bassa — tanta sabbia, mare lontano.",
+        },
+        pool_low: {
+          ok: nearLow,
+          warn: mid,
+          bad: nearHigh,
+          okText: "Ideale: piscina di mare e sabbia ampia a marea bassa.",
+          warnText: "Ok: marea intermedia.",
+          badText: "Alta marea: meno spiaggia, piscina meno utile.",
+        },
+        rocks: {
+          ok: nearLow || (mid && !rising),
+          warn: mid && rising,
+          bad: nearHigh,
+          okText: "Ideale per rock pools e passeggiata sulle rocce (bassa/media).",
+          warnText: "Medio: alcuni pozze ancora accessibili.",
+          badText: "Alta marea: rocce sommerse, meno esplorazione.",
+        },
+        wild: {
+          ok: mid || nearHigh,
+          warn: nearLow && rising,
+          bad: nearLow && !rising,
+          okText: "Buona: livello comodo per spiaggia selvaggia.",
+          warnText: "Bassa in risalita: attenzione alle correnti e ai tempi di ritorno.",
+          badText: "Bassa estrema: attenzione a restare isolati dalle maree.",
+        },
+        island: {
+          ok: true,
+          warn: false,
+          bad: false,
+          okText: "Dipende dal ferry: controlla orari Corsaire. Spiaggia a sud di solito ok.",
+          warnText: "",
+          badText: "",
+        },
+      };
+      const w = windows[profile] || windows.swim;
+      let status = "ok", text = w.okText;
+      if (w.bad) { status = "bad"; text = w.badText; }
+      else if (w.warn) { status = "warn"; text = w.warnText; }
+      else { status = "ok"; text = w.okText; }
+      return { status, text };
+    }
+
+    function globalAdvice(phase, fraction) {
+      const lines = [];
+      if (fraction >= 0.65) {
+        lines.push({ cls: "ok", t: "✅ Favorevole bagno (Écluse, Lunaire, Chevrets): marea alta/media-alta." });
+        lines.push({ cls: "warn", t: "⚠️ Prieuré piscina / rock pools Énogat: meglio aspettare la discesa." });
+      } else if (fraction <= 0.35) {
+        lines.push({ cls: "ok", t: "✅ Favorevole: passeggiate sulla sabbia, piscina del Prieuré, rock pools Énogat." });
+        lines.push({ cls: "warn", t: "⚠️ Bagno meno comodo: mare lontano, camminata lunga." });
+      } else {
+        lines.push({ cls: "ok", t: "✅ Marea intermedia: buon compromesso bagno + camminata." });
+      }
+      if (phase.next) {
+        const kind = phase.next.type === "H" ? "alta" : "bassa";
+        lines.push({ cls: "", t: `Prossima marea ${kind}: ${fmtTime(phase.next.date)} (tra ${phase.toNextMin} min).` });
+      }
+      return lines;
+    }
+
+    // ——— Fetch tides ———
+    async function loadTides() {
+      const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${TIDE_LAT}&longitude=${TIDE_LNG}` +
+        `&hourly=sea_level_height_msl&forecast_days=3&timezone=Europe%2FParis`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      const times = data.hourly.time;
+      const heights = data.hourly.sea_level_height_msl;
+      const extremes = findExtremes(times, heights);
+      const nowInfo = interpolateNow(times, heights);
+      const minH = Math.min(...heights.filter(h => h != null));
+      const maxH = Math.max(...heights.filter(h => h != null));
+      const fraction = maxH > minH ? (nowInfo.height - minH) / (maxH - minH) : 0.5;
+      const phase = phaseBetween(extremes);
+      tideState = { times, heights, extremes, nowInfo, phase, fraction, minH, maxH };
+      renderTidePanel();
+      updateMarkersAndList();
+    }
+
+    function renderTidePanel() {
+      const panel = document.getElementById("tidePanel");
+      const body = document.getElementById("tideBody");
+      const chip = document.getElementById("mapTideChip");
+      panel.classList.remove("loading");
+
+      if (!tideState) {
+        body.innerHTML = `<p class="err">Previsione non disponibile. Ricarica la pagina.</p>`;
+        return;
+      }
+      const { phase, fraction, nowInfo, extremes, minH, maxH } = tideState;
+      const sun = sunTimes();
+      const nextH = extremes.find(e => e.type === "H" && e.date > new Date());
+      const nextL = extremes.find(e => e.type === "L" && e.date > new Date());
+      const advice = globalAdvice(phase, fraction);
+
+      const pct = Math.round(fraction * 100);
+      body.innerHTML = `
+        <div class="tide-now">
+          <span class="phase">${phase.label}</span>
+          <span class="level">${nowInfo.height.toFixed(2)} m · ${pct}% del range</span>
+        </div>
+        <div class="tide-bar" title="Bassa ← → Alta"><div class="knob" style="left:${pct}%"></div></div>
+        <div class="tide-extremes">
+          <div class="hi"><div class="lbl">Prossima alta</div><div class="val">${nextH ? fmtTime(nextH.date) + " · " + nextH.height.toFixed(2) + " m" : "—"}</div></div>
+          <div class="lo"><div class="lbl">Prossima bassa</div><div class="val">${nextL ? fmtTime(nextL.date) + " · " + nextL.height.toFixed(2) + " m" : "—"}</div></div>
+        </div>
+        <div class="sun-row">
+          <span>🌅 Alba ${fmtTime(sun.sunrise)}</span>
+          <span>🌇 Tramonto ${fmtTime(sun.sunset)}</span>
+          <span>✨ Golden hour da ${fmtTime(sun.goldenStart)}</span>
+        </div>
+        <div class="advice">${advice.map(a => `<div class="${a.cls}">${a.t}</div>`).join("")}</div>
+        <div class="tide-days" id="tideDays"></div>
+      `;
+
+      // next 48h extremes list
+      const upcoming = extremes.filter(e => e.date > new Date() - 3600000).slice(0, 8);
+      document.getElementById("tideDays").innerHTML = upcoming.map(e =>
+        `<div class="row"><b>${e.type === "H" ? "▲ Alta" : "▼ Bassa"}</b><span>${fmtDay(e.date)} ${fmtTime(e.date)} · ${e.height.toFixed(2)} m</span></div>`
+      ).join("");
+
+      chip.textContent = `🌊 ${phase.label} · prossima ${phase.next ? (phase.next.type === "H" ? "alta" : "bassa") + " " + fmtTime(phase.next.date) : "—"} · 🌇 ${fmtTime(sun.sunset)}`;
+    }
+
+    // ——— Map ———
+    const map = L.map("map").setView([48.63, -2.04], 12);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap · maree Open-Meteo",
+      maxZoom: 19,
+    }).addTo(map);
+
+    function iconFor(cat, status) {
+      const c = categories.find(x => x.id === cat)?.color || "#64748b";
+      let ring = "white";
+      if (status === "ok") ring = "#22c55e";
+      if (status === "warn") ring = "#f59e0b";
+      if (status === "bad") ring = "#ef4444";
+      if (cat === "sunset") ring = "#fb923c";
+      return L.divIcon({
+        className: "",
+        html: `<div style="width:14px;height:14px;border-radius:50%;background:${c};border:2px solid ${ring};box-shadow:0 1px 4px rgba(0,0,0,.45)"></div>`,
+        iconSize: [14, 14],
+        iconAnchor: [7, 7],
+      });
+    }
+
+    function placeStatus(p) {
+      if (!tideState || !p.tideProfile) return null;
+      return beachAdvice(p.tideProfile, tideState.phase, tideState.fraction);
+    }
+
+    function popupHtml(p) {
+      let extra = "";
+      const st = placeStatus(p);
+      if (st) {
+        const label = st.status === "ok" ? "Favorevole ora" : st.status === "warn" ? "Così così" : "Sconsigliato ora";
+        extra += `<div class="tide-box"><strong>${label}</strong><br>${st.text}`;
+        if (tideState?.phase?.next) {
+          const k = tideState.phase.next.type === "H" ? "alta" : "bassa";
+          extra += `<br><small>Prossima ${k}: ${fmtTime(tideState.phase.next.date)}</small>`;
+        }
+        extra += `</div>`;
+      }
+      if (p.cat === "sunset") {
+        const sun = sunTimes();
+        extra += `<div class="tide-box"><strong>Tramonto oggi</strong> ${fmtTime(sun.sunset)}<br>
+          Golden hour: ${fmtTime(sun.goldenStart)} – ${fmtTime(sun.goldenEnd)}<br>
+          <small>Arriva 20–30 min prima per il posto migliore.</small></div>`;
+      }
+      return `<div class="popup"><h3>${p.name}</h3><p>${p.desc}</p>${extra}
+        <a href="${gmapsUrl(p)}" target="_blank" rel="noopener">Apri in Google Maps →</a></div>`;
+    }
+
+    const markers = places.map((p, i) => {
+      const m = L.marker([p.lat, p.lng], { icon: iconFor(p.cat, null) });
+      m._placeIdx = i;
+      m.bindPopup(() => popupHtml(p));
+      return m;
+    });
+
+    function updateMarkersAndList() {
+      markers.forEach((m, i) => {
+        const p = places[i];
+        const st = placeStatus(p);
+        m.setIcon(iconFor(p.cat, st?.status));
+        if (m.isPopupOpen()) m.setPopupContent(popupHtml(p));
+      });
+      renderList();
+    }
+
+    function refresh() {
+      markers.forEach((m, i) => {
+        const p = places[i];
+        if (active.has(p.cat)) {
+          if (!map.hasLayer(m)) m.addTo(map);
+        } else if (map.hasLayer(m)) {
+          map.removeLayer(m);
+        }
+      });
+      renderList();
+    }
+
+    function renderFilters() {
+      const el = document.getElementById("filters");
+      el.innerHTML = categories.map(c =>
+        `<button type="button" data-id="${c.id}" class="${active.has(c.id) ? "active" : ""}">${c.label}</button>`
+      ).join("");
+      el.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.id;
+          if (active.has(id)) active.delete(id); else active.add(id);
+          btn.classList.toggle("active");
+          refresh();
+        });
+      });
+    }
+
+    function renderList() {
+      const list = document.getElementById("list");
+      list.innerHTML = categories.filter(c => active.has(c.id)).map(c => {
+        const items = places.filter(p => p.cat === c.id);
+        if (!items.length) return "";
+        return `<section class="cat"><h2>${c.label}</h2>${items.map(p => {
+          const i = places.indexOf(p);
+          const st = placeStatus(p);
+          let badge = "";
+          if (st) {
+            const lab = st.status === "ok" ? "ok ora" : st.status === "warn" ? "medio" : "no ora";
+            badge = `<span class="badge ${st.status}">${lab}</span>`;
+          }
+          if (p.cat === "sunset") {
+            badge += ` <span class="badge sun">🌇 ${fmtTime(sunTimes().sunset)}</span>`;
+          }
+          return `<button type="button" class="item" data-i="${i}">
+            <div class="t">${p.name} ${badge}</div>
+            <div class="d">${p.desc}${st ? " · " + st.text : ""}</div>
+            <a class="gmaps" href="${gmapsUrl(p)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Google Maps ↗</a>
+          </button>`;
+        }).join("")}</section>`;
+      }).join("");
+      list.querySelectorAll(".item").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          if (e.target.closest("a")) return;
+          const i = +btn.dataset.i;
+          const p = places[i];
+          map.setView([p.lat, p.lng], 15);
+          markers[i].openPopup();
+        });
+      });
+    }
+
+    renderFilters();
+    refresh();
+    loadTides().catch(err => {
+      document.getElementById("tidePanel").classList.remove("loading");
+      document.getElementById("tideBody").innerHTML =
+        `<p class="err">Errore maree: ${err.message}. Controlla la connessione.</p>
+         <div class="sun-row"><span>🌇 Tramonto ${fmtTime(sunTimes().sunset)}</span></div>`;
+      document.getElementById("mapTideChip").textContent = `🌇 Tramonto ${fmtTime(sunTimes().sunset)}`;
+      renderList();
+    });
+
+    // refresh tide phase every 5 min
+    setInterval(() => {
+      if (!tideState) return;
+      const { times, heights, extremes, minH, maxH } = tideState;
+      const nowInfo = interpolateNow(times, heights);
+      const fraction = maxH > minH ? (nowInfo.height - minH) / (maxH - minH) : 0.5;
+      const phase = phaseBetween(extremes);
+      tideState = { ...tideState, nowInfo, phase, fraction };
+      renderTidePanel();
+      updateMarkersAndList();
+    }, 5 * 60 * 1000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<name>Dinard &amp; Côte d'Émeraude</name>
+<description>Spiagge, mercati, ristoranti, ferry, camminate, colonnine EV (OSM)</description>
+<Style id="s0"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href></Icon></IconStyle></Style>
+<Style id="s1"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-blank.png</href></Icon></IconStyle></Style>
+<Style id="s2"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/orange-blank.png</href></Icon></IconStyle></Style>
+<Style id="s3"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon></IconStyle></Style>
+<Style id="s4"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png</href></Icon></IconStyle></Style>
+<Style id="s5"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-blank.png</href></Icon></IconStyle></Style>
+<Style id="s6"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style>
+<Style id="s7"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/ltblu-blank.png</href></Icon></IconStyle></Style>
+<Style id="s8"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/pink-blank.png</href></Icon></IconStyle></Style>
+<Folder><name>📍 Partenza</name>
+<Placemark>
+  <name>Tu sei qui</name>
+  <description><![CDATA[<p>[📍 Partenza] Coordinate di partenza: 48.618866, -2.037716</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6188660%2C-2.0377160">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s0</styleUrl>
+  <Point><coordinates>-2.0377160,48.6188660,0</coordinates></Point>
+</Placemark>
+</Folder>
+<Folder><name>🏖️ Spiagge</name>
+<Placemark>
+  <name>Plage de l&#x27;Écluse</name>
+  <description><![CDATA[<p>[🏖️ Spiagge] Spiaggia-icona di Dinard: tende a strisce, casinò, belvedere. La più vivace.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6364681%2C-2.0553620">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s1</styleUrl>
+  <Point><coordinates>-2.0553620,48.6364681,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Plage du Prieuré</name>
+  <description><![CDATA[<p>[🏖️ Spiagge] Famiglie, parco Port-Breton, piscina d&#x27;acqua di mare a marea bassa. Vista Saint-Malo.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6256661%2C-2.0532040">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s1</styleUrl>
+  <Point><coordinates>-2.0532040,48.6256661,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Plage de Saint-Énogat</name>
+  <description><![CDATA[<p>[🏖️ Spiagge] Più intima, rock pools, atmosfera da villaggio. Quartiere originario di Dinard.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6391009%2C-2.0693179">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s1</styleUrl>
+  <Point><coordinates>-2.0693179,48.6391009,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Plage de Port-Blanc</name>
+  <description><![CDATA[<p>[🏖️ Spiagge] La più selvaggia delle 4 di Dinard. Confine con Saint-Lunaire.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6365263%2C-2.0816410">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s1</styleUrl>
+  <Point><coordinates>-2.0816410,48.6365263,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Grande Plage de Saint-Lunaire</name>
+  <description><![CDATA[<p>[🏖️ Spiagge] ~10 min da Dinard. Ampia spiaggia di sabbia.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6377817%2C-2.1099974">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s1</styleUrl>
+  <Point><coordinates>-2.1099974,48.6377817,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Île de Cézembre</name>
+  <description><![CDATA[<p>[🏖️ Spiagge] Solo in battello da Dinard/St-Malo (~20 min). Spiaggia a sud. Parte nord interdetta (WWII).</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6768428%2C-2.0715022">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s1</styleUrl>
+  <Point><coordinates>-2.0715022,48.6768428,0</coordinates></Point>
+</Placemark>
+</Folder>
+<Folder><name>Nudist Naturiste</name>
+<Placemark>
+  <name>Fourberie — zona naturista (Saint-Lunaire)</name>
+  <description><![CDATA[<p>[Nudist Naturiste] Naturismo TOLLERATO nella caletta a OVEST dopo le rocce. Non ufficiale. Cani vietati.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6352882%2C-2.0850938">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s2</styleUrl>
+  <Point><coordinates>-2.0850938,48.6352882,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Chevrets — zona naturista (Saint-Coulomb)</name>
+  <description><![CDATA[<p>[Nudist Naturiste] Naturismo lato est verso Pointe du Meinga. Grande spiaggia. ~25–30 min auto da Dinard.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6926072%2C-1.9418849">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s2</styleUrl>
+  <Point><coordinates>-1.9418849,48.6926072,0</coordinates></Point>
+</Placemark>
+</Folder>
+<Folder><name>🛒 Mercati</name>
+<Placemark>
+  <name>Halles &amp; Marché Dinard (Place Crolard)</name>
+  <description><![CDATA[<p>[🛒 Mercati] Halles coperte: ogni mattina 7:30–13:30. Mercato esterno mar/gio/sab: set–giu 9–12:30 (sab→13); lug–ago 8:30–14. Fino a ~300 banchi in estate.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6320459%2C-2.0580392">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s3</styleUrl>
+  <Point><coordinates>-2.0580392,48.6320459,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Marché Saint-Énogat (Place du Calvaire)</name>
+  <description><![CDATA[<p>[🛒 Mercati] Solo luglio–agosto: mercoledì 9:00–12:30, Rue de Saint-Lunaire / Place du Calvaire.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6360000%2C-2.0679661">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s3</styleUrl>
+  <Point><coordinates>-2.0679661,48.6360000,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Marché aux Huîtres Cancale</name>
+  <description><![CDATA[<p>[🛒 Mercati] MUST ostriche. Port de la Houle, Rue des Parcs. 8 produttori, tutti i giorni (~9–17:30+). Degustazione sul posto, vista Mont-Saint-Michel.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6707685%2C-1.8513142">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s3</styleUrl>
+  <Point><coordinates>-1.8513142,48.6707685,0</coordinates></Point>
+</Placemark>
+</Folder>
+<Folder><name>⭐ Ristoranti</name>
+<Placemark>
+  <name>Pourquoi Pas ★ (Castelbrac)</name>
+  <description><![CDATA[<p>[⭐ Ristoranti] 1 stella Michelin, chef Julien Hennote. Cucina moderna locale, vista mare. Prenotare. €€€€</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6344466%2C-2.0490168">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s4</styleUrl>
+  <Point><coordinates>-2.0490168,48.6344466,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Didier Méril</name>
+  <description><![CDATA[<p>[⭐ Ristoranti] 1 Place du Général de Gaulle. Vista baia del Prieuré. Pesce e cucina di mercato. €€€</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6274381%2C-2.0555345">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s4</styleUrl>
+  <Point><coordinates>-2.0555345,48.6274381,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>La Passerelle du Clair de Lune</name>
+  <description><![CDATA[<p>[⭐ Ristoranti] 3 Avenue George V. Vista cale, pesce. Top Tripadvisor Dinard.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6318335%2C-2.0520607">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s4</styleUrl>
+  <Point><coordinates>-2.0520607,48.6318335,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>La Vallée</name>
+  <description><![CDATA[<p>[⭐ Ristoranti] 6 Avenue George V. Sullo scoglio sopra la cale del Bec de la Vallée. Cucina iodata. €€</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6362639%2C-2.0484626">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s4</styleUrl>
+  <Point><coordinates>-2.0484626,48.6362639,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Café de la Plage (Saint-Énogat)</name>
+  <description><![CDATA[<p>[⭐ Ristoranti] 66 Boulevard Albert Lacroix. Sul mare a Énogat, atmosfera rilassata.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6364062%2C-2.0678126">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s4</styleUrl>
+  <Point><coordinates>-2.0678126,48.6364062,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Lou à la plage</name>
+  <description><![CDATA[<p>[⭐ Ristoranti] Esplanade Jacques Chirac / ingresso diga Écluse. Fronte mare, aperto anche bar/tapas.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6353790%2C-2.0551035">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s4</styleUrl>
+  <Point><coordinates>-2.0551035,48.6353790,0</coordinates></Point>
+</Placemark>
+</Folder>
+<Folder><name>🏛️ Centro</name>
+<Placemark>
+  <name>Centre-ville Dinard (Place de la République)</name>
+  <description><![CDATA[<p>[🏛️ Centro] Cuore commerciale: place de la République, boutique, gallerie.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6334184%2C-2.0561911">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s5</styleUrl>
+  <Point><coordinates>-2.0561911,48.6334184,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Boulevard Féart (shopping)</name>
+  <description><![CDATA[<p>[🏛️ Centro] Asse shopping storico di Dinard. Boutique, moda, artigianato.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6325000%2C-2.0550000">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s5</styleUrl>
+  <Point><coordinates>-2.0550000,48.6325000,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Saint-Malo Intra-Muros</name>
+  <description><![CDATA[<p>[🏛️ Centro] Città fortificata. 10 min in ferry da Dinard.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6487018%2C-2.0199432">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s5</styleUrl>
+  <Point><coordinates>-2.0199432,48.6487018,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Cancale (centro)</name>
+  <description><![CDATA[<p>[🏛️ Centro] Capitale delle ostriche. ~30 min auto da Dinard.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6773205%2C-1.8645809">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s5</styleUrl>
+  <Point><coordinates>-1.8645809,48.6773205,0</coordinates></Point>
+</Placemark>
+</Folder>
+<Folder><name>⛴️ Ferry</name>
+<Placemark>
+  <name>Ferry Dinard — Compagnie Corsaire (Clair de Lune)</name>
+  <description><![CDATA[<p>[⛴️ Ferry] Promenade du Clair de Lune. → Saint-Malo (~10&#x27;), Cézembre (~20&#x27;), escursioni Chausey, Cap Fréhel, Cancale, Rance/Dinan, Jersey. compagniecorsaire.com</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6339345%2C-2.0500957">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s6</styleUrl>
+  <Point><coordinates>-2.0500957,48.6339345,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Ferry Dinard — Cale du Bec de la Vallée</name>
+  <description><![CDATA[<p>[⛴️ Ferry] Cale di Dinard (alta stagione). Partenze vedettes / bus de mer.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6357303%2C-2.0475675">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s6</styleUrl>
+  <Point><coordinates>-2.0475675,48.6357303,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Ferry Saint-Malo — Cale de Dinan</name>
+  <description><![CDATA[<p>[⛴️ Ferry] Ai piedi delle mura Intra-Muros. Arrivo/partenza bus de mer ↔ Dinard.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6456217%2C-2.0272486">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s6</styleUrl>
+  <Point><coordinates>-2.0272486,48.6456217,0</coordinates></Point>
+</Placemark>
+</Folder>
+<Folder><name>🥾 Camminate</name>
+<Placemark>
+  <name>Promenade du Clair de Lune</name>
+  <description><![CDATA[<p>[🥾 Camminate] ~2 km dal Prieuré all&#x27;anse du Bec de la Vallée. Vegetazione esotica, vista Saint-Malo. Facile, iconica.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6303758%2C-2.0527440">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s7</styleUrl>
+  <Point><coordinates>-2.0527440,48.6303758,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>Pointe du Moulinet</name>
+  <description><![CDATA[<p>[🥾 Camminate] Belvedere da l&#x27;Écluse. Vista 360° su baia, Saint-Malo, Cézembre. Ideale al tramonto.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6369843%2C-2.0494501">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s7</styleUrl>
+  <Point><coordinates>-2.0494501,48.6369843,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>GR34 partenza Écluse → Saint-Lunaire</name>
+  <description><![CDATA[<p>[🥾 Camminate] ~8 km, 1h30–2h. Costiero: Écluse → Énogat → Port-Blanc → Saint-Lunaire.</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6364681%2C-2.0553620">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s7</styleUrl>
+  <Point><coordinates>-2.0553620,48.6364681,0</coordinates></Point>
+</Placemark>
+</Folder>
+<Folder><name>⚡ Ricarica EV</name>
+<Placemark>
+  <name>⚡ Sodetrel — Place Paul Crolard, Saint-Énogat, Dinard</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Sodetrel. Connettori: type2:2, typee:2. Stalli: 2. A pagamento: yes. Orari: 24/7. Zona: Place Paul Crolard, Saint-Énogat, Dinard. ~0.2 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6314689%2C-2.0582472">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0582472,48.6314689,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Sodetrel — Rue du Bois Met, Dinard</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Sodetrel. Connettori: type2:2, typee:2. Stalli: 2. A pagamento: yes. Orari: 24/7. Zona: Rue du Bois Met, Dinard. ~1.1 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6221361%2C-2.0548934">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0548934,48.6221361,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Sodetrel — Rue Gouyon-Matignon, Saint-Alexandre, Dinard</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Sodetrel. Connettori: type2:2, typee:2. Stalli: 2. A pagamento: yes. Orari: 24/7. Zona: Rue Gouyon-Matignon, Saint-Alexandre, Dinard. ~1.2 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6237692%2C-2.0661953">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0661953,48.6237692,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE35 — Digue des Bas-Sablons, Saint-Servan - Solidor, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE35. Stalli: 10. Orari: 24/7. Zona: Digue des Bas-Sablons, Saint-Servan - Solidor, Saint-Malo. ~2.4 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6359619%2C-2.0226844">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0226844,48.6359619,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Intermarché-Pleurtuit — Rue du Cap de Bonne Espérance</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Intermarché. Connettori: type2:8, type2:output:7 kW, typee:8, typee:output:3.4 kW. Stalli: 8. A pagamento: yes. Accesso: yes. Zona: Rue du Cap de Bonne Espérance, Pleurtuit. ~2.5 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6104698%2C-2.0625536">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0625536,48.6104698,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Freshmile SAS — Rue de l&#x27;Hermitage, La Richardais</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Freshmile SAS. Connettori: type2:yes, typee:yes. A pagamento: no. Orari: 24/7. Zona: Rue de l&#x27;Hermitage, La Richardais. ~2.5 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6094890%2C-2.0566440">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0566440,48.6094890,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Électricité de France — Barrage de la Rance, La Richardais</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Électricité de France. Stalli: 8. Zona: Barrage de la Rance, La Richardais. ~2.6 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6168878%2C-2.0285360">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0285360,48.6168878,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Sodetrel — Rue Jean Langlais, La Richardais</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Sodetrel. Connettori: type2:2, typee:2. Stalli: 2. A pagamento: yes. Orari: 24/7. Zona: Rue Jean Langlais, La Richardais. ~3.1 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6074756%2C-2.0361959">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0361959,48.6074756,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE35 — Rue Godard, Saint-Servan, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE35. Stalli: 2. Orari: 24/7. Zona: Rue Godard, Saint-Servan, Saint-Malo. ~3.1 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6367261%2C-2.0129935">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0129935,48.6367261,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE35 — Quai Duguay-Trouin, Courtoisville - Sillon - Moka, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE35. Stalli: 2. A pagamento: no. Orari: 24/7. Zona: Quai Duguay-Trouin, Courtoisville - Sillon - Moka, Saint-Malo. ~3.3 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6509331%2C-2.0211055">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0211055,48.6509331,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE35 — Rue Victor Renaud, Saint-Lunaire</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE35. Stalli: 2. Orari: 24/7. Zona: Rue Victor Renaud, Saint-Lunaire. ~3.5 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6324988%2C-2.1033197">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.1033197,48.6324988,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ EV — Rue de la Balue, Le Rosais - La Flourie, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Stalli: 2. Zona: Rue de la Balue, Le Rosais - La Flourie, Saint-Malo. ~3.6 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6288914%2C-2.0058297">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0058297,48.6288914,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE35 — Avenue Anita Conti, Rocabey, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE35. Stalli: 2. Orari: 24/7. Zona: Avenue Anita Conti, Rocabey, Saint-Malo. ~3.9 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6459147%2C-2.0066839">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0066839,48.6459147,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Ouest Charge — Boulevard de la Tour d&#x27;Auvergne, Rocabey, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Ouest Charge. Connettori: type2:1, typee:1. Stalli: 2. A pagamento: yes. Accesso: yes. Orari: 24/7. Zona: Boulevard de la Tour d&#x27;Auvergne, Rocabey, Saint-Malo. ~4.1 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6516296%2C-2.0080807">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0080807,48.6516296,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Power Dot France — Avenue Aristide Briand, Espérance - Cottages, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Power Dot France. Connettori: type2_combo:yes, type2_combo:output:100 kW;187.5 kW. Stalli: 11. A pagamento: yes. Orari: 24/7. Zona: Avenue Aristide Briand, Espérance - Cottages, Saint-Malo. ~4.7 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6488774%2C-1.9969609">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9969609,48.6488774,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ EV — D 168, La Madeleine - Bellevue, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] A pagamento: yes. Accesso: yes. Zona: D 168, La Madeleine - Bellevue, Saint-Malo. ~4.7 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6197903%2C-1.9936026">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9936026,48.6197903,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ IZIVIA — Rue Salvador Allende, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: IZIVIA. Connettori: type2:yes, type2_combo:yes, type2_combo:output:150 kW. Stalli: 3. A pagamento: yes. Orari: 24/7. Zona: Rue Salvador Allende, Saint-Malo. ~4.8 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6345536%2C-1.9901052">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9901052,48.6345536,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ IZIVIA — Avenue de Launay-Breton, La Madeleine - Bellevue, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: IZIVIA. Connettori: chademo:yes, type2:yes, type2_combo:yes, type2_combo:output:150 kW;63 kW. Stalli: 2;3. A pagamento: yes. Orari: 24/7. Zona: Avenue de Launay-Breton, La Madeleine - Bellevue, Saint-Malo. ~4.8 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6258930%2C-1.9906068">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9906068,48.6258930,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ IZIVIA — Rue Claude Chapel, La Madeleine - Bellevue, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: IZIVIA. Connettori: type2:yes, type2_combo:yes, type2_combo:output:200 kW. Stalli: 3. A pagamento: yes. Orari: 24/7. Zona: Rue Claude Chapel, La Madeleine - Bellevue, Saint-Malo. ~5.2 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6223258%2C-1.9861476">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9861476,48.6223258,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Freshmile SAS — Boulevard Gambetta, Courtoisville - Sillon - Moka, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Freshmile SAS. Connettori: type2:yes, typee:yes. A pagamento: no. Orari: 24/7. Zona: Boulevard Gambetta, Courtoisville - Sillon - Moka, Saint-Malo. ~5.2 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6540551%2C-1.9928889">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9928889,48.6540551,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ DRIVECO — Boulevard de la Houle, Saint-Briac-sur-Mer</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: DRIVECO. Stalli: 8. A pagamento: yes. Accesso: yes. Zona: Boulevard de la Houle, Saint-Briac-sur-Mer. ~6.0 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6315578%2C-2.1362745">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.1362745,48.6315578,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Sodetrel — Rue Ransbach-Baumbach, Pleurtuit</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Sodetrel. Connettori: type2:2, typee:2. Stalli: 2. A pagamento: yes. Orari: 24/7. Zona: Rue Ransbach-Baumbach, Pleurtuit. ~6.0 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.5780857%2C-2.0608168">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0608168,48.5780857,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ EV — Place de la Mer, Paramé, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Zona: Place de la Mer, Paramé, Saint-Malo. ~6.0 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6637415%2C-1.9884994">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9884994,48.6637415,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE35 — Rue du Prieuré Saint-Domin, Paramé, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE35. Stalli: 2. Orari: 24/7. Zona: Rue du Prieuré Saint-Domin, Paramé, Saint-Malo. ~6.1 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6580890%2C-1.9818998">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9818998,48.6580890,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ EV — Rue du Moulin du Domaine, Saint-Jouan-des-Guérets</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Stalli: 4. Zona: Rue du Moulin du Domaine, Saint-Jouan-des-Guérets. ~6.5 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6042298%2C-1.9768816">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9768816,48.6042298,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ E-TOTEM — Avenue des Fontenelles, Le Lévy - Saint-Ideuc, Saint-Malo</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: E-TOTEM. Connettori: type2:yes, typee:yes. A pagamento: no. Orari: 24/7. Zona: Avenue des Fontenelles, Le Lévy - Saint-Ideuc, Saint-Malo. ~6.8 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6682107%2C-1.9797605">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9797605,48.6682107,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE35 — Rue du Général de Gaulle, Le Minihic-sur-Rance</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE35. Stalli: 2. Accesso: unknown. Zona: Rue du Général de Gaulle, Le Minihic-sur-Rance. ~7.0 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.5753713%2C-2.0137873">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0137873,48.5753713,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE22 — Rue de la Mairie, Les Hauts de Buglais, Lancieux</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE22. Connettori: type2:2, typee:2. Stalli: 2. A pagamento: yes. Orari: 24/7. Zona: Rue de la Mairie, Les Hauts de Buglais, Lancieux. ~7.7 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6041302%2C-2.1510371">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.1510371,48.6041302,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ OuestCharge — Impasse du Souvenir</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Stalli: 2. A pagamento: yes. Zona: Impasse du Souvenir, Rothéneuf, Saint-Malo. ~8.5 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6816264%2C-1.9673920">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9673920,48.6816264,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE22 — Rue des Ormelets, Beaussais-sur-Mer</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE22. Connettori: type2:2, typee:2. Stalli: 2. A pagamento: yes. Orari: 24/7. Zona: Rue des Ormelets, Beaussais-sur-Mer. ~8.7 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.5802618%2C-2.1447682">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.1447682,48.5802618,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Power Dot France — Rue d&#x27;Émeraude, Saint-Méloir-des-Ondes</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Power Dot France. Connettori: type2_combo:yes, type2_combo:output:200.0 kW. Stalli: 5. A pagamento: yes. Orari: 24/7. Zona: Rue d&#x27;Émeraude, Saint-Méloir-des-Ondes. ~10.6 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6389187%2C-1.9112221">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9112221,48.6389187,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE35 — Place Arthur Regnault, Saint-Georges</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE35. Stalli: 2. Orari: 24/7. Zona: Place Arthur Regnault, Saint-Georges. ~10.8 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.5881406%2C-1.9242864">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9242864,48.5881406,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Brev&#x27;Car — Rue du Général de Gaulle, Pleslin-Trigavou</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Brev&#x27;Car. Zona: Rue du Général de Gaulle, Pleslin-Trigavou. ~11.1 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.5317893%2C-2.0562498">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0562498,48.5317893,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ SDE35 — Place du Marché, Saint-Coulomb</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: SDE35. Stalli: 2. Orari: 24/7. Zona: Place du Marché, Saint-Coulomb. ~11.4 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.6752126%2C-1.9137811">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-1.9137811,48.6752126,0</coordinates></Point>
+</Placemark>
+<Placemark>
+  <name>⚡ Ionity Plouer sur Rance — Rue des Charpentiers de Marine</name>
+  <description><![CDATA[<p>[⚡ Ricarica EV] Rete/operatore: Ionity. Connettori: type2_combo:6, type2_combo:output:350 kW. Stalli: 6. A pagamento: yes. Accesso: yes. Orari: 24/7. Zona: Rue des Charpentiers de Marine, Plouër-sur-Rance. ~11.7 km dal centro Dinard. Fonte: OpenStreetMap</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.5308276%2C-2.0127440">Apri in Google Maps</a></p>]]></description>
+  <styleUrl>#s8</styleUrl>
+  <Point><coordinates>-2.0127440,48.5308276,0</coordinates></Point>
+</Placemark>
+</Folder>
+</Document>
+</kml>
