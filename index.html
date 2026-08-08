@@ -126,6 +126,15 @@
       border-radius: 999px; padding: 0.28rem 0.55rem; font-size: 0.68rem; cursor: pointer;
     }
     .filters button.active { background: var(--accent); color: #0f172a; border-color: var(--accent); font-weight: 600; }
+    .filter-actions { display: flex; gap: 0.35rem; padding: 0 0.9rem 0.45rem; }
+    .filter-actions button {
+      border: 1px solid var(--border); background: #0f172a; color: var(--muted);
+      border-radius: 8px; padding: 0.28rem 0.6rem; font-size: 0.68rem; cursor: pointer;
+    }
+    .filter-actions button:hover { color: var(--text); border-color: var(--accent); }
+    .badge.broc { background: rgba(217,119,6,.2); color: #fbbf24; }
+    .badge.broc-off { background: rgba(148,163,184,.15); color: var(--muted); }
+    .market-card.brocante { border-left: 3px solid #d97706; }
     .list-meta { padding: 0.45rem 1rem 0; font-size: 0.72rem; color: var(--muted); }
     .cat { padding: 0.65rem 1rem 0.15rem; }
     .cat h2 { margin: 0 0 0.4rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
@@ -189,13 +198,17 @@
       </div>
 
       <div class="tide-panel market-panel" id="marketPanel">
-        <h2 id="marketTitle">🛒 Mercati</h2>
+        <h2 id="marketTitle">🛒 Mercati &amp; 🏺 Brocante</h2>
         <div class="day-tabs" id="marketDayTabs"></div>
         <div class="market-list" id="marketList">Caricamento…</div>
-        <p class="tide-note">Giorni e orari tipici (verifica in alta stagione). Estate = lug–ago.</p>
+        <p class="tide-note">Mercati settimanali + brocante/vide-greniers. Date “occasionali” da verificare in loco. Estate = lug–ago.</p>
       </div>
 
       <div class="filters" id="filters"></div>
+      <div class="filter-actions" id="filterActions">
+        <button type="button" id="btnAllOn">Seleziona tutto</button>
+        <button type="button" id="btnAllOff">Deseleziona tutto</button>
+      </div>
       <div class="list-meta" id="listMeta"></div>
       <div id="list"></div>
       <div class="legend">
@@ -211,7 +224,7 @@
 
   <script>
     const TZ = "Europe/Paris";
-    const PLACES = [{"cat": "you", "name": "Tu sei qui", "lat": 48.618866, "lng": -2.037716, "desc": "Partenza: 48.618866, −2.037716.", "priority": 1}, {"cat": "beach", "name": "Plage de l'Écluse", "lat": 48.636468, "lng": -2.055362, "desc": "Icona Dinard: tende a strisce, casinò.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage du Prieuré", "lat": 48.625666, "lng": -2.053204, "desc": "Famiglie, piscina di mare a marea bassa.", "tideProfile": "pool_low", "priority": 2}, {"cat": "beach", "name": "Plage de Saint-Énogat", "lat": 48.639101, "lng": -2.069318, "desc": "Intima, rock pools.", "tideProfile": "rocks", "priority": 2}, {"cat": "beach", "name": "Plage de Port-Blanc (Dinard)", "lat": 48.636526, "lng": -2.081641, "desc": "La più selvaggia di Dinard.", "tideProfile": "wild", "priority": 2}, {"cat": "beach", "name": "Grande Plage Saint-Lunaire", "lat": 48.637782, "lng": -2.109997, "desc": "Ampia sabbia, stazione balneare.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage de Longchamp (Saint-Lunaire)", "lat": 48.636862, "lng": -2.12075, "desc": "Spiaggia a ovest di Saint-Lunaire.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Île de Cézembre", "lat": 48.676843, "lng": -2.071502, "desc": "Solo in battello. Spiaggia a sud.", "tideProfile": "island", "priority": 2}, {"cat": "beach", "name": "Plage de la Manchette (St-Jacut)", "lat": 48.592511, "lng": -2.183615, "desc": "Grande spiaggia di Saint-Jacut-de-la-Mer.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage du Rougeret (St-Jacut)", "lat": 48.606686, "lng": -2.187655, "desc": "Spiaggia nord di Saint-Jacut, vista isole.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage de Lancieux", "lat": 48.592745, "lng": -2.164093, "desc": "Ampia baia tra St-Jacut e St-Briac.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage de Saint-Briac", "lat": 48.626511, "lng": -2.145971, "desc": "Spiaggia principale di Saint-Briac.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage de la Garde Guérin", "lat": 48.634685, "lng": -2.135938, "desc": "Caletta/rocce a Saint-Briac.", "tideProfile": "rocks", "priority": 3}, {"cat": "beach", "name": "Grande Plage Saint-Cast", "lat": 48.644442, "lng": -2.25738, "desc": "Spiaggia principale di Saint-Cast-le-Guildo.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage de Pen Guen (Saint-Cast)", "lat": 48.616105, "lng": -2.238695, "desc": "Spiaggia a sud di Saint-Cast.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Sables-d'Or-les-Pins", "lat": 48.644478, "lng": -2.407278, "desc": "Lunga spiaggia tra Fréhel e Erquy.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage de Bon Secours (St-Malo)", "lat": 48.648716, "lng": -2.029261, "desc": "Sotto le mura + piscina di mare.", "tideProfile": "pool_low", "priority": 1}, {"cat": "beach", "name": "Plage de l'Éventail (St-Malo)", "lat": 48.65276, "lng": -2.022423, "desc": "Tra mura e Fort National.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage du Môle (St-Malo)", "lat": 48.645085, "lng": -2.031881, "desc": "Piccola spiaggia Intra-Muros.", "tideProfile": "swim", "priority": 3}, {"cat": "beach", "name": "Plage de Rochebonne (St-Malo)", "lat": 48.666101, "lng": -1.993124, "desc": "Ampia spiaggia Paramé/Rochebonne.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage du Sillon (St-Malo)", "lat": 48.6555, "lng": -2.008, "desc": "La grande spiaggia che collega Intra-Muros a Paramé.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage du Havre de Rothéneuf", "lat": 48.681014, "lng": -1.956368, "desc": "Baia di Rothéneuf, est di Saint-Malo.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage du Port-Mer (Cancale)", "lat": 48.7015, "lng": -1.8485, "desc": "Nord Cancale, verso Pointe du Grouin.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage de Port-Pican (Cancale)", "lat": 48.685, "lng": -1.868, "desc": "Tra Cancale e Port-Mer.", "tideProfile": "swim", "priority": 3}, {"cat": "beach", "name": "Plage de la Fenêtre (Cancale)", "lat": 48.6755, "lng": -1.862, "desc": "Vicino al porto, vista baia.", "tideProfile": "wild", "priority": 3}, {"cat": "beach", "name": "Plage de Saint-Benoît-des-Ondes", "lat": 48.618, "lng": -1.855, "desc": "Verso la baia del Mont, sabbia ampia a bassa marea.", "tideProfile": "wild", "priority": 2}, {"cat": "beach", "name": "Plage de Cherrueix", "lat": 48.612, "lng": -1.705, "desc": "Baia del Mont: sabbia a perdita d'occhio a bassa marea.", "tideProfile": "wild", "priority": 2}, {"cat": "beach", "name": "Plage de Saint-Jean-le-Thomas", "lat": 48.73, "lng": -1.515, "desc": "Lato normanno della baia, vista Mont-Saint-Michel.", "tideProfile": "wild", "priority": 2}, {"cat": "nude", "name": "Fourberie naturista (St-Lunaire)", "lat": 48.635288, "lng": -2.085094, "desc": "Naturismo tollerato, caletta ovest.", "tideProfile": "wild", "priority": 2}, {"cat": "nude", "name": "Chevrets naturista (St-Coulomb)", "lat": 48.692607, "lng": -1.941885, "desc": "Zona est verso Pointe du Meinga.", "tideProfile": "swim", "priority": 2}, {"cat": "sunset", "name": "🌅 Pointe du Moulinet (Dinard)", "lat": 48.636984, "lng": -2.04945, "desc": "Belvedere 360° Dinard.", "priority": 1}, {"cat": "sunset", "name": "🌅 Port-Blanc ovest (Dinard)", "lat": 48.636526, "lng": -2.081641, "desc": "Sole verso Saint-Lunaire.", "priority": 2}, {"cat": "sunset", "name": "🌅 Pointe du Décollé", "lat": 48.644933, "lng": -2.112594, "desc": "Promontorio Saint-Lunaire.", "priority": 1}, {"cat": "sunset", "name": "🌅 Pointe de la Vicomté", "lat": 48.627434, "lng": -2.033005, "desc": "Vista Rance.", "priority": 2}, {"cat": "sunset", "name": "🌅 Remparts Saint-Malo", "lat": 48.6495, "lng": -2.0258, "desc": "Mura Intra-Muros al tramonto.", "priority": 1}, {"cat": "sunset", "name": "🌅 Cap Fréhel", "lat": 48.68139, "lng": -2.318994, "desc": "Falesie e faro: uno dei tramonti più belli di Bretagna.", "priority": 1}, {"cat": "sunset", "name": "🌅 Pointe de la Garde (St-Cast)", "lat": 48.625741, "lng": -2.238189, "desc": "Belvedere Saint-Cast.", "priority": 2}, {"cat": "sunset", "name": "🌅 Pointe du Grouin (Cancale)", "lat": 48.709735, "lng": -1.844169, "desc": "Tramonto/alba sulla baia, vista isole e a est il Mont con il binocolo.", "priority": 1}, {"cat": "sunset", "name": "🌅 Mont-Saint-Michel (sera)", "lat": 48.635954, "lng": -1.51146, "desc": "Luce dorata sull'abbazia. Arriva 1h prima, parcheggio La Caserne.", "priority": 1}, {"cat": "sunset", "name": "🌅 Sables-d'Or diga", "lat": 48.644478, "lng": -2.407278, "desc": "Sole sull'Atlantico.", "priority": 2}, {"cat": "food", "name": "Pourquoi Pas ★ (Dinard)", "lat": 48.634447, "lng": -2.049017, "desc": "Michelin, Castelbrac.", "priority": 2}, {"cat": "food", "name": "Didier Méril (Dinard)", "lat": 48.627438, "lng": -2.055535, "desc": "Vista Prieuré.", "priority": 2}, {"cat": "food", "name": "La Passerelle (Dinard)", "lat": 48.631834, "lng": -2.052061, "desc": "3 Av. George V.", "priority": 3}, {"cat": "food", "name": "Breizh Café (St-Malo / Cancale)", "lat": 48.6487, "lng": -2.0255, "desc": "Crêpes moderne, più sedi sulla costa.", "priority": 2}, {"cat": "food", "name": "Le Chalut (St-Malo)", "lat": 48.6492, "lng": -2.0245, "desc": "Pesce Intra-Muros (classico).", "priority": 2}, {"cat": "oyster", "name": "Marché aux Huîtres Cancale", "lat": 48.670769, "lng": -1.851314, "desc": "MUST: 8 produttori, Port de la Houle, tutti i giorni.", "priority": 1}, {"cat": "oyster", "name": "Port de la Houle", "lat": 48.670334, "lng": -1.856154, "desc": "Porto ostricolo di Cancale.", "priority": 1}, {"cat": "oyster", "name": "Halles Dinard — pesce", "lat": 48.632046, "lng": -2.0555, "desc": "Ostriche di Cancale al mercato.", "priority": 2}, {"cat": "center", "name": "Centre Dinard", "lat": 48.633418, "lng": -2.056191, "desc": "Place de la République, shopping.", "priority": 1}, {"cat": "center", "name": "Saint-Malo Intra-Muros", "lat": 48.648702, "lng": -2.019943, "desc": "Città fortificata corsara.", "priority": 1}, {"cat": "center", "name": "Tour Solidor", "lat": 48.634031, "lng": -2.026069, "desc": "Saint-Servan, museo e vista Rance.", "priority": 2}, {"cat": "center", "name": "Fort National", "lat": 48.654867, "lng": -2.023271, "desc": "Accessibile a piedi a marea bassa.", "priority": 2}, {"cat": "center", "name": "Grand Bé", "lat": 48.652261, "lng": -2.033258, "desc": "Isolotto + tomba Chateaubriand, a piedi a bassa marea.", "priority": 1}, {"cat": "center", "name": "Petit Bé", "lat": 48.652486, "lng": -2.038434, "desc": "Forte sull'isolotto, marea bassa.", "priority": 2}, {"cat": "center", "name": "Rochers sculptés Rothéneuf", "lat": 48.686726, "lng": -1.968229, "desc": "Rocce scolpite di Abbé Fouré.", "priority": 1}, {"cat": "center", "name": "Cancale centre", "lat": 48.677321, "lng": -1.864581, "desc": "Capitale delle ostriche.", "priority": 1}, {"cat": "center", "name": "Pointe du Grouin", "lat": 48.709735, "lng": -1.844169, "desc": "Belvedere e riserva, estrema punta.", "priority": 1}, {"cat": "center", "name": "Cap Fréhel", "lat": 48.68139, "lng": -2.318994, "desc": "Falesie rosse, faro, GR34.", "priority": 1}, {"cat": "center", "name": "Fort La Latte", "lat": 48.668203, "lng": -2.28487, "desc": "Castello medievale sulle scogliere.", "priority": 1}, {"cat": "center", "name": "Mont-Saint-Michel", "lat": 48.635954, "lng": -1.51146, "desc": "Abbazia UNESCO nella baia. UNESCO world heritage.", "priority": 1}, {"cat": "center", "name": "La Caserne (parcheggio MSM)", "lat": 48.608951, "lng": -1.510066, "desc": "Navette gratuite verso il Mont.", "priority": 1}, {"cat": "center", "name": "Dol-de-Bretagne", "lat": 48.54983, "lng": -1.754257, "desc": "Cittadina medievale, cattedrale, mercato sab.", "priority": 2}, {"cat": "center", "name": "Saint-Jacut-de-la-Mer", "lat": 48.598, "lng": -2.19, "desc": "Penisola e abbazia, spiagge su due lati.", "priority": 1}, {"cat": "center", "name": "Saint-Cast-le-Guildo", "lat": 48.63, "lng": -2.255, "desc": "Stazione balneare, porto, punta.", "priority": 1}, {"cat": "center", "name": "Saint-Briac-sur-Mer", "lat": 48.62, "lng": -2.133, "desc": "Villaggio e spiagge tra Lunaire e Lancieux.", "priority": 2}, {"cat": "center", "name": "Cherrueix (baia)", "lat": 48.606085, "lng": -1.711016, "desc": "Mulini a vento e baie del Mont.", "priority": 2}, {"cat": "center", "name": "Hirel", "lat": 48.606156, "lng": -1.801949, "desc": "Sulla baia, verso Cancale/Mont.", "priority": 3}, {"cat": "ferry", "name": "Ferry Dinard — Corsaire", "lat": 48.633935, "lng": -2.050096, "desc": "↔ St-Malo, Cézembre, escursioni.", "priority": 1}, {"cat": "ferry", "name": "Cale Bec de la Vallée (Dinard)", "lat": 48.63573, "lng": -2.047568, "desc": "Alta stagione.", "priority": 2}, {"cat": "ferry", "name": "Ferry St-Malo — Cale de Dinan", "lat": 48.645622, "lng": -2.027249, "desc": "Ai piedi delle mura.", "priority": 1}, {"cat": "ferry", "name": "Port Saint-Cast", "lat": 48.640835, "lng": -2.244948, "desc": "Escursioni e porto peschereccio.", "priority": 2}, {"cat": "ferry", "name": "Port Saint-Briac", "lat": 48.632573, "lng": -2.139745, "desc": "Piccolo porto.", "priority": 3}, {"cat": "walk", "name": "Promenade Clair de Lune", "lat": 48.630376, "lng": -2.052744, "desc": "2 km iconici Dinard.", "priority": 1}, {"cat": "walk", "name": "GR34 Dinard → St-Lunaire", "lat": 48.636468, "lng": -2.055362, "desc": "~8 km costieri.", "priority": 1}, {"cat": "walk", "name": "Remparts Saint-Malo (giro mura)", "lat": 48.6495, "lng": -2.0255, "desc": "Circuito sulle mura, ~2 km.", "priority": 1}, {"cat": "walk", "name": "GR34 Cap Fréhel → Fort La Latte", "lat": 48.68139, "lng": -2.318994, "desc": "Falesie spettacolari.", "priority": 1}, {"cat": "walk", "name": "GR34 Pointe du Grouin", "lat": 48.709735, "lng": -1.844169, "desc": "Sentiero doganieri Cancale.", "priority": 1}, {"cat": "walk", "name": "Traversée baie Mont-Saint-Michel", "lat": 48.635954, "lng": -1.51146, "desc": "Solo con guida autorizzata (sabbie mobili).", "priority": 1}, {"cat": "walk", "name": "GR34 Saint-Jacut / Ebihens", "lat": 48.6, "lng": -2.195, "desc": "Penisola e vista arcipelago.", "priority": 2}, {"cat": "shop", "name": "Boulevard Féart (Dinard)", "lat": 48.6325, "lng": -2.055, "desc": "Shopping Belle Époque.", "priority": 2}, {"cat": "shop", "name": "Rue de Dinan / Intra-Muros", "lat": 48.649, "lng": -2.024, "desc": "Negozi e souvenir dentro le mura.", "priority": 2}, {"cat": "ev", "name": "⚡ Sodetrel Halles Dinard", "lat": 48.631469, "lng": -2.058247, "desc": "Type2, centro Dinard.", "priority": 2}, {"cat": "ev", "name": "⚡ Sodetrel Bois Met", "lat": 48.622136, "lng": -2.054893, "desc": "Type2 Dinard sud.", "priority": 3}, {"cat": "ev", "name": "⚡ Intermarché Pleurtuit", "lat": 48.61047, "lng": -2.062554, "desc": "8 stalli.", "priority": 2}, {"cat": "ev", "name": "⚡ EDF Barrage Rance", "lat": 48.616888, "lng": -2.028536, "desc": "8 stalli diga.", "priority": 2}, {"cat": "ev", "name": "⚡ SDE35 Bas-Sablons St-Malo", "lat": 48.635962, "lng": -2.022684, "desc": "10 stalli Saint-Servan.", "priority": 2}, {"cat": "ev", "name": "⚡ Power Dot Briand St-Malo 100–187 kW", "lat": 48.648877, "lng": -1.996961, "desc": "Ricarica rapida.", "priority": 1}, {"cat": "ev", "name": "⚡ IZIVIA Claude Chapel 200 kW", "lat": 48.622326, "lng": -1.986148, "desc": "Rapida Madeleine.", "priority": 1}, {"cat": "ev", "name": "⚡ IZIVIA Allende 150 kW", "lat": 48.634554, "lng": -1.990105, "desc": "Rapida St-Malo.", "priority": 2}, {"cat": "ev", "name": "⚡ DRIVECO Saint-Briac", "lat": 48.631558, "lng": -2.136275, "desc": "8 stalli ovest.", "priority": 2}, {"cat": "ev", "name": "⚡ Ionity Plouër 350 kW", "lat": 48.530828, "lng": -2.012744, "desc": "6×350 kW, A84/N176.", "priority": 1}, {"cat": "ev", "name": "⚡ Power Dot St-Méloir 200 kW", "lat": 48.638919, "lng": -1.911222, "desc": "Verso Cancale.", "priority": 2}, {"cat": "market", "name": "🛒 Halles de Dinard (coperto)", "lat": 48.632046, "lng": -2.058039, "priority": 1, "desc": "18 banchi al coperto, Place Crolard / Halles de la Concorde.", "days": [0, 1, 2, 3, 4, 5, 6], "hours": "7:30–13:30", "hoursNote": "Lunedì ridotto fuori vacanze scolastiche", "season": "all", "place": "Dinard — Halles"}, {"cat": "market", "name": "🛒 Marché Dinard (esterno)", "lat": 48.6318, "lng": -2.0583, "priority": 1, "desc": "Grande mercato sull'esplanade (fino a ~300 banchi in estate).", "days": [2, 4, 6], "hours": "set–giu 9:00–12:30 (sab→13:00) · lug–ago 8:30–14:00", "season": "all", "place": "Dinard — Place Crolard"}, {"cat": "market", "name": "🛒 Marché Saint-Énogat", "lat": 48.636, "lng": -2.067966, "priority": 2, "desc": "Mercato estivo Place du Calvaire / Rue de Saint-Lunaire.", "days": [3], "hours": "9:00–12:30", "season": "summer", "place": "Dinard — Saint-Énogat"}, {"cat": "market", "name": "🛒 Marché St-Malo Intra-Muros", "lat": 48.647982, "lng": -2.025594, "priority": 1, "desc": "Dentro le mura, zona Place de la Poissonnerie.", "days": [2, 5], "hours": "mattina (~8:00–13:00)", "season": "all", "place": "Saint-Malo Intra-Muros"}, {"cat": "market", "name": "🛒 Marché Paramé (St-Malo)", "lat": 48.6585, "lng": -1.9865, "priority": 2, "desc": "Mercato di Paramé (verifica orari stagionali).", "days": [3], "hours": "mattina", "season": "all", "place": "Saint-Malo — Paramé"}, {"cat": "market", "name": "🛒 Marché Saint-Servan", "lat": 48.6355, "lng": -2.0185, "priority": 2, "desc": "Quartiere Saint-Servan.", "days": [1], "hours": "mattina", "season": "all", "place": "Saint-Malo — Saint-Servan"}, {"cat": "market", "name": "🛒 Marché Cancale", "lat": 48.6768, "lng": -1.852, "priority": 1, "desc": "Centro Cancale — abbinabile alle ostriche del porto.", "days": [0], "hours": "mattina (~8:30–13:00)", "season": "all", "place": "Cancale"}, {"cat": "market", "name": "🛒 Marché aux Huîtres Cancale", "lat": 48.670769, "lng": -1.851314, "priority": 1, "desc": "8 produttori, Port de la Houle. Tutti i giorni, degustazione sul posto.", "days": [0, 1, 2, 3, 4, 5, 6], "hours": "~9:00–17:30 (estate spesso più tardi)", "season": "all", "place": "Cancale — Port de la Houle"}, {"cat": "market", "name": "🛒 Marché Dol-de-Bretagne", "lat": 48.54983, "lng": -1.754257, "priority": 2, "desc": "Centro medievale.", "days": [6], "hours": "8:00–12:30", "season": "all", "place": "Dol-de-Bretagne"}, {"cat": "market", "name": "🛒 Marché Dinan", "lat": 48.4555, "lng": -2.0475, "priority": 2, "desc": "Place Duguesclin / Champ Clos — uno dei più belli.", "days": [4], "hours": "8:00–13:00", "season": "all", "place": "Dinan"}, {"cat": "market", "name": "🛒 Marché Saint-Lunaire", "lat": 48.6355, "lng": -2.108, "priority": 2, "desc": "Vicino alla Grande Plage.", "days": [2], "hours": "mattina (stagione / verifica)", "season": "all", "place": "Saint-Lunaire"}, {"cat": "market", "name": "🛒 Marché Saint-Cast", "lat": 48.63, "lng": -2.255, "priority": 2, "desc": "Stazione di Saint-Cast-le-Guildo.", "days": [5], "hours": "mattina", "season": "all", "place": "Saint-Cast-le-Guildo"}, {"cat": "market", "name": "🛒 Marché Saint-Briac", "lat": 48.62, "lng": -2.133, "priority": 3, "desc": "Villaggio di Saint-Briac-sur-Mer.", "days": [0], "hours": "mattina (stagione)", "season": "summer", "place": "Saint-Briac"}, {"cat": "market", "name": "🛒 Marché Saint-Jacut", "lat": 48.598, "lng": -2.19, "priority": 2, "desc": "Penisola di Saint-Jacut-de-la-Mer.", "days": [5], "hours": "mattina", "season": "all", "place": "Saint-Jacut-de-la-Mer"}, {"cat": "market", "name": "🛒 Marché Matignon", "lat": 48.5965, "lng": -2.291, "priority": 3, "desc": "Verso Cap Fréhel.", "days": [3], "hours": "mattina", "season": "all", "place": "Matignon"}];
+    const PLACES = [{"cat": "you", "name": "Tu sei qui", "lat": 48.618866, "lng": -2.037716, "desc": "Partenza: 48.618866, −2.037716.", "priority": 1}, {"cat": "beach", "name": "Plage de l'Écluse", "lat": 48.636468, "lng": -2.055362, "desc": "Icona Dinard: tende a strisce, casinò.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage du Prieuré", "lat": 48.625666, "lng": -2.053204, "desc": "Famiglie, piscina di mare a marea bassa.", "tideProfile": "pool_low", "priority": 2}, {"cat": "beach", "name": "Plage de Saint-Énogat", "lat": 48.639101, "lng": -2.069318, "desc": "Intima, rock pools.", "tideProfile": "rocks", "priority": 2}, {"cat": "beach", "name": "Plage de Port-Blanc (Dinard)", "lat": 48.636526, "lng": -2.081641, "desc": "La più selvaggia di Dinard.", "tideProfile": "wild", "priority": 2}, {"cat": "beach", "name": "Grande Plage Saint-Lunaire", "lat": 48.637782, "lng": -2.109997, "desc": "Ampia sabbia, stazione balneare.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage de Longchamp (Saint-Lunaire)", "lat": 48.636862, "lng": -2.12075, "desc": "Spiaggia a ovest di Saint-Lunaire.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Île de Cézembre", "lat": 48.676843, "lng": -2.071502, "desc": "Solo in battello. Spiaggia a sud.", "tideProfile": "island", "priority": 2}, {"cat": "beach", "name": "Plage de la Manchette (St-Jacut)", "lat": 48.592511, "lng": -2.183615, "desc": "Grande spiaggia di Saint-Jacut-de-la-Mer.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage du Rougeret (St-Jacut)", "lat": 48.606686, "lng": -2.187655, "desc": "Spiaggia nord di Saint-Jacut, vista isole.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage de Lancieux", "lat": 48.592745, "lng": -2.164093, "desc": "Ampia baia tra St-Jacut e St-Briac.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage de Saint-Briac", "lat": 48.626511, "lng": -2.145971, "desc": "Spiaggia principale di Saint-Briac.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage de la Garde Guérin", "lat": 48.634685, "lng": -2.135938, "desc": "Caletta/rocce a Saint-Briac.", "tideProfile": "rocks", "priority": 3}, {"cat": "beach", "name": "Grande Plage Saint-Cast", "lat": 48.644442, "lng": -2.25738, "desc": "Spiaggia principale di Saint-Cast-le-Guildo.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage de Pen Guen (Saint-Cast)", "lat": 48.616105, "lng": -2.238695, "desc": "Spiaggia a sud di Saint-Cast.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Sables-d'Or-les-Pins", "lat": 48.644478, "lng": -2.407278, "desc": "Lunga spiaggia tra Fréhel e Erquy.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage de Bon Secours (St-Malo)", "lat": 48.648716, "lng": -2.029261, "desc": "Sotto le mura + piscina di mare.", "tideProfile": "pool_low", "priority": 1}, {"cat": "beach", "name": "Plage de l'Éventail (St-Malo)", "lat": 48.65276, "lng": -2.022423, "desc": "Tra mura e Fort National.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage du Môle (St-Malo)", "lat": 48.645085, "lng": -2.031881, "desc": "Piccola spiaggia Intra-Muros.", "tideProfile": "swim", "priority": 3}, {"cat": "beach", "name": "Plage de Rochebonne (St-Malo)", "lat": 48.666101, "lng": -1.993124, "desc": "Ampia spiaggia Paramé/Rochebonne.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage du Sillon (St-Malo)", "lat": 48.6555, "lng": -2.008, "desc": "La grande spiaggia che collega Intra-Muros a Paramé.", "tideProfile": "swim", "priority": 1}, {"cat": "beach", "name": "Plage du Havre de Rothéneuf", "lat": 48.681014, "lng": -1.956368, "desc": "Baia di Rothéneuf, est di Saint-Malo.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage du Port-Mer (Cancale)", "lat": 48.7015, "lng": -1.8485, "desc": "Nord Cancale, verso Pointe du Grouin.", "tideProfile": "swim", "priority": 2}, {"cat": "beach", "name": "Plage de Port-Pican (Cancale)", "lat": 48.685, "lng": -1.868, "desc": "Tra Cancale e Port-Mer.", "tideProfile": "swim", "priority": 3}, {"cat": "beach", "name": "Plage de la Fenêtre (Cancale)", "lat": 48.6755, "lng": -1.862, "desc": "Vicino al porto, vista baia.", "tideProfile": "wild", "priority": 3}, {"cat": "beach", "name": "Plage de Saint-Benoît-des-Ondes", "lat": 48.618, "lng": -1.855, "desc": "Verso la baia del Mont, sabbia ampia a bassa marea.", "tideProfile": "wild", "priority": 2}, {"cat": "beach", "name": "Plage de Cherrueix", "lat": 48.612, "lng": -1.705, "desc": "Baia del Mont: sabbia a perdita d'occhio a bassa marea.", "tideProfile": "wild", "priority": 2}, {"cat": "beach", "name": "Plage de Saint-Jean-le-Thomas", "lat": 48.73, "lng": -1.515, "desc": "Lato normanno della baia, vista Mont-Saint-Michel.", "tideProfile": "wild", "priority": 2}, {"cat": "nude", "name": "Fourberie naturista (St-Lunaire)", "lat": 48.635288, "lng": -2.085094, "desc": "Naturismo tollerato, caletta ovest.", "tideProfile": "wild", "priority": 2}, {"cat": "nude", "name": "Chevrets naturista (St-Coulomb)", "lat": 48.692607, "lng": -1.941885, "desc": "Zona est verso Pointe du Meinga.", "tideProfile": "swim", "priority": 2}, {"cat": "sunset", "name": "🌅 Pointe du Moulinet (Dinard)", "lat": 48.636984, "lng": -2.04945, "desc": "Belvedere 360° Dinard.", "priority": 1}, {"cat": "sunset", "name": "🌅 Port-Blanc ovest (Dinard)", "lat": 48.636526, "lng": -2.081641, "desc": "Sole verso Saint-Lunaire.", "priority": 2}, {"cat": "sunset", "name": "🌅 Pointe du Décollé", "lat": 48.644933, "lng": -2.112594, "desc": "Promontorio Saint-Lunaire.", "priority": 1}, {"cat": "sunset", "name": "🌅 Pointe de la Vicomté", "lat": 48.627434, "lng": -2.033005, "desc": "Vista Rance.", "priority": 2}, {"cat": "sunset", "name": "🌅 Remparts Saint-Malo", "lat": 48.6495, "lng": -2.0258, "desc": "Mura Intra-Muros al tramonto.", "priority": 1}, {"cat": "sunset", "name": "🌅 Cap Fréhel", "lat": 48.68139, "lng": -2.318994, "desc": "Falesie e faro: uno dei tramonti più belli di Bretagna.", "priority": 1}, {"cat": "sunset", "name": "🌅 Pointe de la Garde (St-Cast)", "lat": 48.625741, "lng": -2.238189, "desc": "Belvedere Saint-Cast.", "priority": 2}, {"cat": "sunset", "name": "🌅 Pointe du Grouin (Cancale)", "lat": 48.709735, "lng": -1.844169, "desc": "Tramonto/alba sulla baia, vista isole e a est il Mont con il binocolo.", "priority": 1}, {"cat": "sunset", "name": "🌅 Mont-Saint-Michel (sera)", "lat": 48.635954, "lng": -1.51146, "desc": "Luce dorata sull'abbazia. Arriva 1h prima, parcheggio La Caserne.", "priority": 1}, {"cat": "sunset", "name": "🌅 Sables-d'Or diga", "lat": 48.644478, "lng": -2.407278, "desc": "Sole sull'Atlantico.", "priority": 2}, {"cat": "food", "name": "Pourquoi Pas ★ (Dinard)", "lat": 48.634447, "lng": -2.049017, "desc": "Michelin, Castelbrac.", "priority": 2}, {"cat": "food", "name": "Didier Méril (Dinard)", "lat": 48.627438, "lng": -2.055535, "desc": "Vista Prieuré.", "priority": 2}, {"cat": "food", "name": "La Passerelle (Dinard)", "lat": 48.631834, "lng": -2.052061, "desc": "3 Av. George V.", "priority": 3}, {"cat": "food", "name": "Breizh Café (St-Malo / Cancale)", "lat": 48.6487, "lng": -2.0255, "desc": "Crêpes moderne, più sedi sulla costa.", "priority": 2}, {"cat": "food", "name": "Le Chalut (St-Malo)", "lat": 48.6492, "lng": -2.0245, "desc": "Pesce Intra-Muros (classico).", "priority": 2}, {"cat": "oyster", "name": "Marché aux Huîtres Cancale", "lat": 48.670769, "lng": -1.851314, "desc": "MUST: 8 produttori, Port de la Houle, tutti i giorni.", "priority": 1}, {"cat": "oyster", "name": "Port de la Houle", "lat": 48.670334, "lng": -1.856154, "desc": "Porto ostricolo di Cancale.", "priority": 1}, {"cat": "oyster", "name": "Halles Dinard — pesce", "lat": 48.632046, "lng": -2.0555, "desc": "Ostriche di Cancale al mercato.", "priority": 2}, {"cat": "center", "name": "Centre Dinard", "lat": 48.633418, "lng": -2.056191, "desc": "Place de la République, shopping.", "priority": 1}, {"cat": "center", "name": "Saint-Malo Intra-Muros", "lat": 48.648702, "lng": -2.019943, "desc": "Città fortificata corsara.", "priority": 1}, {"cat": "center", "name": "Tour Solidor", "lat": 48.634031, "lng": -2.026069, "desc": "Saint-Servan, museo e vista Rance.", "priority": 2}, {"cat": "center", "name": "Fort National", "lat": 48.654867, "lng": -2.023271, "desc": "Accessibile a piedi a marea bassa.", "priority": 2}, {"cat": "center", "name": "Grand Bé", "lat": 48.652261, "lng": -2.033258, "desc": "Isolotto + tomba Chateaubriand, a piedi a bassa marea.", "priority": 1}, {"cat": "center", "name": "Petit Bé", "lat": 48.652486, "lng": -2.038434, "desc": "Forte sull'isolotto, marea bassa.", "priority": 2}, {"cat": "center", "name": "Rochers sculptés Rothéneuf", "lat": 48.686726, "lng": -1.968229, "desc": "Rocce scolpite di Abbé Fouré.", "priority": 1}, {"cat": "center", "name": "Cancale centre", "lat": 48.677321, "lng": -1.864581, "desc": "Capitale delle ostriche.", "priority": 1}, {"cat": "center", "name": "Pointe du Grouin", "lat": 48.709735, "lng": -1.844169, "desc": "Belvedere e riserva, estrema punta.", "priority": 1}, {"cat": "center", "name": "Cap Fréhel", "lat": 48.68139, "lng": -2.318994, "desc": "Falesie rosse, faro, GR34.", "priority": 1}, {"cat": "center", "name": "Fort La Latte", "lat": 48.668203, "lng": -2.28487, "desc": "Castello medievale sulle scogliere.", "priority": 1}, {"cat": "center", "name": "Mont-Saint-Michel", "lat": 48.635954, "lng": -1.51146, "desc": "Abbazia UNESCO nella baia. UNESCO world heritage.", "priority": 1}, {"cat": "center", "name": "La Caserne (parcheggio MSM)", "lat": 48.608951, "lng": -1.510066, "desc": "Navette gratuite verso il Mont.", "priority": 1}, {"cat": "center", "name": "Dol-de-Bretagne", "lat": 48.54983, "lng": -1.754257, "desc": "Cittadina medievale, cattedrale, mercato sab.", "priority": 2}, {"cat": "center", "name": "Saint-Jacut-de-la-Mer", "lat": 48.598, "lng": -2.19, "desc": "Penisola e abbazia, spiagge su due lati.", "priority": 1}, {"cat": "center", "name": "Saint-Cast-le-Guildo", "lat": 48.63, "lng": -2.255, "desc": "Stazione balneare, porto, punta.", "priority": 1}, {"cat": "center", "name": "Saint-Briac-sur-Mer", "lat": 48.62, "lng": -2.133, "desc": "Villaggio e spiagge tra Lunaire e Lancieux.", "priority": 2}, {"cat": "center", "name": "Cherrueix (baia)", "lat": 48.606085, "lng": -1.711016, "desc": "Mulini a vento e baie del Mont.", "priority": 2}, {"cat": "center", "name": "Hirel", "lat": 48.606156, "lng": -1.801949, "desc": "Sulla baia, verso Cancale/Mont.", "priority": 3}, {"cat": "ferry", "name": "Ferry Dinard — Corsaire", "lat": 48.633935, "lng": -2.050096, "desc": "↔ St-Malo, Cézembre, escursioni.", "priority": 1}, {"cat": "ferry", "name": "Cale Bec de la Vallée (Dinard)", "lat": 48.63573, "lng": -2.047568, "desc": "Alta stagione.", "priority": 2}, {"cat": "ferry", "name": "Ferry St-Malo — Cale de Dinan", "lat": 48.645622, "lng": -2.027249, "desc": "Ai piedi delle mura.", "priority": 1}, {"cat": "ferry", "name": "Port Saint-Cast", "lat": 48.640835, "lng": -2.244948, "desc": "Escursioni e porto peschereccio.", "priority": 2}, {"cat": "ferry", "name": "Port Saint-Briac", "lat": 48.632573, "lng": -2.139745, "desc": "Piccolo porto.", "priority": 3}, {"cat": "walk", "name": "Promenade Clair de Lune", "lat": 48.630376, "lng": -2.052744, "desc": "2 km iconici Dinard.", "priority": 1}, {"cat": "walk", "name": "GR34 Dinard → St-Lunaire", "lat": 48.636468, "lng": -2.055362, "desc": "~8 km costieri.", "priority": 1}, {"cat": "walk", "name": "Remparts Saint-Malo (giro mura)", "lat": 48.6495, "lng": -2.0255, "desc": "Circuito sulle mura, ~2 km.", "priority": 1}, {"cat": "walk", "name": "GR34 Cap Fréhel → Fort La Latte", "lat": 48.68139, "lng": -2.318994, "desc": "Falesie spettacolari.", "priority": 1}, {"cat": "walk", "name": "GR34 Pointe du Grouin", "lat": 48.709735, "lng": -1.844169, "desc": "Sentiero doganieri Cancale.", "priority": 1}, {"cat": "walk", "name": "Traversée baie Mont-Saint-Michel", "lat": 48.635954, "lng": -1.51146, "desc": "Solo con guida autorizzata (sabbie mobili).", "priority": 1}, {"cat": "walk", "name": "GR34 Saint-Jacut / Ebihens", "lat": 48.6, "lng": -2.195, "desc": "Penisola e vista arcipelago.", "priority": 2}, {"cat": "shop", "name": "Boulevard Féart (Dinard)", "lat": 48.6325, "lng": -2.055, "desc": "Shopping Belle Époque.", "priority": 2}, {"cat": "shop", "name": "Rue de Dinan / Intra-Muros", "lat": 48.649, "lng": -2.024, "desc": "Negozi e souvenir dentro le mura.", "priority": 2}, {"cat": "ev", "name": "⚡ Sodetrel Halles Dinard", "lat": 48.631469, "lng": -2.058247, "desc": "Type2, centro Dinard.", "priority": 2}, {"cat": "ev", "name": "⚡ Sodetrel Bois Met", "lat": 48.622136, "lng": -2.054893, "desc": "Type2 Dinard sud.", "priority": 3}, {"cat": "ev", "name": "⚡ Intermarché Pleurtuit", "lat": 48.61047, "lng": -2.062554, "desc": "8 stalli.", "priority": 2}, {"cat": "ev", "name": "⚡ EDF Barrage Rance", "lat": 48.616888, "lng": -2.028536, "desc": "8 stalli diga.", "priority": 2}, {"cat": "ev", "name": "⚡ SDE35 Bas-Sablons St-Malo", "lat": 48.635962, "lng": -2.022684, "desc": "10 stalli Saint-Servan.", "priority": 2}, {"cat": "ev", "name": "⚡ Power Dot Briand St-Malo 100–187 kW", "lat": 48.648877, "lng": -1.996961, "desc": "Ricarica rapida.", "priority": 1}, {"cat": "ev", "name": "⚡ IZIVIA Claude Chapel 200 kW", "lat": 48.622326, "lng": -1.986148, "desc": "Rapida Madeleine.", "priority": 1}, {"cat": "ev", "name": "⚡ IZIVIA Allende 150 kW", "lat": 48.634554, "lng": -1.990105, "desc": "Rapida St-Malo.", "priority": 2}, {"cat": "ev", "name": "⚡ DRIVECO Saint-Briac", "lat": 48.631558, "lng": -2.136275, "desc": "8 stalli ovest.", "priority": 2}, {"cat": "ev", "name": "⚡ Ionity Plouër 350 kW", "lat": 48.530828, "lng": -2.012744, "desc": "6×350 kW, A84/N176.", "priority": 1}, {"cat": "ev", "name": "⚡ Power Dot St-Méloir 200 kW", "lat": 48.638919, "lng": -1.911222, "desc": "Verso Cancale.", "priority": 2}, {"cat": "market", "name": "🛒 Halles de Dinard (coperto)", "lat": 48.632046, "lng": -2.058039, "priority": 1, "desc": "18 banchi al coperto, Place Crolard / Halles de la Concorde.", "days": [0, 1, 2, 3, 4, 5, 6], "hours": "7:30–13:30", "hoursNote": "Lunedì ridotto fuori vacanze scolastiche", "season": "all", "place": "Dinard — Halles"}, {"cat": "market", "name": "🛒 Marché Dinard (esterno)", "lat": 48.6318, "lng": -2.0583, "priority": 1, "desc": "Grande mercato sull'esplanade (fino a ~300 banchi in estate).", "days": [2, 4, 6], "hours": "set–giu 9:00–12:30 (sab→13:00) · lug–ago 8:30–14:00", "season": "all", "place": "Dinard — Place Crolard"}, {"cat": "market", "name": "🛒 Marché Saint-Énogat", "lat": 48.636, "lng": -2.067966, "priority": 2, "desc": "Mercato estivo Place du Calvaire / Rue de Saint-Lunaire.", "days": [3], "hours": "9:00–12:30", "season": "summer", "place": "Dinard — Saint-Énogat"}, {"cat": "market", "name": "🛒 Marché St-Malo Intra-Muros", "lat": 48.647982, "lng": -2.025594, "priority": 1, "desc": "Dentro le mura, zona Place de la Poissonnerie.", "days": [2, 5], "hours": "mattina (~8:00–13:00)", "season": "all", "place": "Saint-Malo Intra-Muros"}, {"cat": "market", "name": "🛒 Marché Paramé (St-Malo)", "lat": 48.6585, "lng": -1.9865, "priority": 2, "desc": "Mercato di Paramé (verifica orari stagionali).", "days": [3], "hours": "mattina", "season": "all", "place": "Saint-Malo — Paramé"}, {"cat": "market", "name": "🛒 Marché Saint-Servan", "lat": 48.6355, "lng": -2.0185, "priority": 2, "desc": "Quartiere Saint-Servan.", "days": [1], "hours": "mattina", "season": "all", "place": "Saint-Malo — Saint-Servan"}, {"cat": "market", "name": "🛒 Marché Cancale", "lat": 48.6768, "lng": -1.852, "priority": 1, "desc": "Centro Cancale — abbinabile alle ostriche del porto.", "days": [0], "hours": "mattina (~8:30–13:00)", "season": "all", "place": "Cancale"}, {"cat": "market", "name": "🛒 Marché aux Huîtres Cancale", "lat": 48.670769, "lng": -1.851314, "priority": 1, "desc": "8 produttori, Port de la Houle. Tutti i giorni, degustazione sul posto.", "days": [0, 1, 2, 3, 4, 5, 6], "hours": "~9:00–17:30 (estate spesso più tardi)", "season": "all", "place": "Cancale — Port de la Houle"}, {"cat": "market", "name": "🛒 Marché Dol-de-Bretagne", "lat": 48.54983, "lng": -1.754257, "priority": 2, "desc": "Centro medievale.", "days": [6], "hours": "8:00–12:30", "season": "all", "place": "Dol-de-Bretagne"}, {"cat": "market", "name": "🛒 Marché Dinan", "lat": 48.4555, "lng": -2.0475, "priority": 2, "desc": "Place Duguesclin / Champ Clos — uno dei più belli.", "days": [4], "hours": "8:00–13:00", "season": "all", "place": "Dinan"}, {"cat": "market", "name": "🛒 Marché Saint-Lunaire", "lat": 48.6355, "lng": -2.108, "priority": 2, "desc": "Vicino alla Grande Plage.", "days": [2], "hours": "mattina (stagione / verifica)", "season": "all", "place": "Saint-Lunaire"}, {"cat": "market", "name": "🛒 Marché Saint-Cast", "lat": 48.63, "lng": -2.255, "priority": 2, "desc": "Stazione di Saint-Cast-le-Guildo.", "days": [5], "hours": "mattina", "season": "all", "place": "Saint-Cast-le-Guildo"}, {"cat": "market", "name": "🛒 Marché Saint-Briac", "lat": 48.62, "lng": -2.133, "priority": 3, "desc": "Villaggio di Saint-Briac-sur-Mer.", "days": [0], "hours": "mattina (stagione)", "season": "summer", "place": "Saint-Briac"}, {"cat": "market", "name": "🛒 Marché Saint-Jacut", "lat": 48.598, "lng": -2.19, "priority": 2, "desc": "Penisola di Saint-Jacut-de-la-Mer.", "days": [5], "hours": "mattina", "season": "all", "place": "Saint-Jacut-de-la-Mer"}, {"cat": "market", "name": "🛒 Marché Matignon", "lat": 48.5965, "lng": -2.291, "priority": 3, "desc": "Verso Cap Fréhel.", "days": [3], "hours": "mattina", "season": "all", "place": "Matignon"}, {"cat": "brocante", "name": "🏺 Foire à la Brocante Dinard", "lat": 48.6318, "lng": -2.0583, "priority": 1, "desc": "Professionisti (~50). Esplanade de la Halle / Place Crolard.", "days": [0], "recurrence": "firstSunday", "hours": "9:00–19:00", "season": "all", "place": "Dinard — Esplanade des Halles"}, {"cat": "brocante", "name": "🏺 Brocante Solidor (Saint-Servan)", "lat": 48.6355, "lng": -2.0205, "priority": 1, "desc": "Esplanade du Commandant Menguy, Saint-Servan. Spesso professionisti.", "days": [2], "recurrence": "weeklySummer", "hours": "8:00–17:30", "season": "summer", "place": "Saint-Malo — Saint-Servan / Solidor"}, {"cat": "brocante", "name": "🏺 Vide-greniers Saint-Lunaire (Marais)", "lat": 48.6335, "lng": -2.105, "priority": 2, "desc": "Parking du Marais. Date variabili (estate) — verifica agenda locale.", "days": [6, 0], "recurrence": "occasional", "hours": "9:00–17:30", "season": "summer", "place": "Saint-Lunaire — Parking du Marais"}, {"cat": "brocante", "name": "🏺 Vide-greniers Cancale centre", "lat": 48.6768, "lng": -1.852, "priority": 2, "desc": "Centro Cancale, date estive variabili (es. mercoledì in agosto).", "days": [3], "recurrence": "occasional", "hours": "7:00–18:00 (quando organizzato)", "season": "summer", "place": "Cancale centre"}, {"cat": "brocante", "name": "🏺 Brocante / antiquaires Intra-Muros", "lat": 48.6492, "lng": -2.0248, "priority": 2, "desc": "Negozi d'antiquariato e déballages occasionali nelle mura.", "days": [0, 1, 2, 3, 4, 5, 6], "recurrence": "shops", "hours": "orari negozi (chiusure variabili)", "season": "all", "place": "Saint-Malo Intra-Muros"}, {"cat": "brocante", "name": "🏺 Antiquaires & galerie Dinard", "lat": 48.6325, "lng": -2.0555, "priority": 2, "desc": "Boutique d'antiquariato e gallerie in centro (bd Féart / zone shopping).", "days": [2, 3, 4, 5, 6], "recurrence": "shops", "hours": "pomeriggio / orari negozi", "season": "all", "place": "Dinard centre"}, {"cat": "brocante", "name": "🏺 Brocante Dinan (occasionale)", "lat": 48.4555, "lng": -2.0475, "priority": 2, "desc": "Città medievale: brocante e vide-greniers su agenda (spesso fine settimana).", "days": [0, 6], "recurrence": "occasional", "hours": "mattina–pomeriggio quando organizzato", "season": "all", "place": "Dinan"}, {"cat": "brocante", "name": "🏺 Vide-greniers La Richardais", "lat": 48.608, "lng": -2.035, "priority": 3, "desc": "Comune vicino al barrage — date variabili.", "days": [0], "recurrence": "occasional", "hours": "quando organizzato", "season": "all", "place": "La Richardais"}, {"cat": "brocante", "name": "🏺 Vide-greniers Saint-Briac", "lat": 48.62, "lng": -2.133, "priority": 3, "desc": "Date estive variabili — controlla manifesto locale.", "days": [0, 6], "recurrence": "occasional", "hours": "quando organizzato", "season": "summer", "place": "Saint-Briac-sur-Mer"}, {"cat": "brocante", "name": "🏺 Brocante Saint-Cast (occasionale)", "lat": 48.63, "lng": -2.255, "priority": 3, "desc": "Stazione balneare — vide-greniers su agenda estiva.", "days": [0, 6], "recurrence": "occasional", "hours": "quando organizzato", "season": "summer", "place": "Saint-Cast-le-Guildo"}, {"cat": "brocante", "name": "🏺 Marché à la brocante Dol-de-Bretagne", "lat": 48.54983, "lng": -1.754257, "priority": 3, "desc": "A volte abbinato al mercato o eventi in centro.", "days": [6], "recurrence": "occasional", "hours": "mattina (eventi)", "season": "all", "place": "Dol-de-Bretagne"}];
 
     const categories = [
       { id: "you", label: "📍 Qui", color: "#ef4444" },
@@ -219,6 +232,7 @@
       { id: "nude", label: "Nudist", color: "#f97316" },
       { id: "sunset", label: "🌅 Tramonti", color: "#fb923c" },
       { id: "market", label: "🛒 Mercati", color: "#22c55e" },
+      { id: "brocante", label: "🏺 Brocante", color: "#d97706" },
       { id: "food", label: "⭐ Ristoranti", color: "#eab308" },
       { id: "oyster", label: "🦪 Ostriche", color: "#06b6d4" },
       { id: "center", label: "🏛️ Luoghi", color: "#a855f7" },
@@ -320,6 +334,65 @@
       return p.days.slice().sort((a,b)=>a-b).map(d => DAY_NAMES[d]).join(" · ");
     }
 
+    function isFirstSundayOfMonth(ref = new Date()) {
+      // Paris calendar day
+      const parts = new Intl.DateTimeFormat("en-GB", {
+        timeZone: TZ, year: "numeric", month: "numeric", day: "numeric", weekday: "short",
+      }).formatToParts(ref);
+      const get = (t) => parts.find(p => p.type === t)?.value;
+      const map = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+      const day = map[get("weekday")] ?? ref.getDay();
+      const dateNum = parseInt(get("day"), 10);
+      return day === 0 && dateNum <= 7;
+    }
+
+    function isBrocanteActiveOnDay(p, day, month, refDate = new Date()) {
+      if (p.cat !== "brocante") return false;
+      if (p.season === "summer" && !(month === 7 || month === 8)) {
+        // shops still open year-round
+        if (p.recurrence !== "shops") return false;
+      }
+      if (p.recurrence === "firstSunday") {
+        // only show as "today" if first Sunday; for other Sundays still list on Sunday tab as "1° domenica del mese"
+        if (day !== 0) return false;
+        if (day === parisNowParts().day) return isFirstSundayOfMonth(refDate);
+        return true; // on Sunday filter show it with note
+      }
+      if (p.recurrence === "weeklySummer") {
+        if (!(month === 7 || month === 8)) return false;
+        return (p.days || []).includes(day);
+      }
+      if (p.recurrence === "shops") {
+        return (p.days || []).includes(day);
+      }
+      // occasional: show on listed days as possible
+      return (p.days || []).includes(day);
+    }
+
+    function brocanteStatusBadge(p) {
+      const now = parisNowParts();
+      if (p.recurrence === "firstSunday") {
+        if (now.day === 0 && isFirstSundayOfMonth()) return { cls: "broc", text: "oggi 1° dom" };
+        return { cls: "broc-off", text: "1° dom mese" };
+      }
+      if (p.recurrence === "shops") return { cls: "broc", text: "negozi" };
+      if (p.recurrence === "weeklySummer") {
+        if (isBrocanteActiveOnDay(p, now.day, now.month) && (now.month === 7 || now.month === 8))
+          return { cls: "broc", text: "oggi (estate)" };
+        return { cls: "broc-off", text: "mar d'agosto" };
+      }
+      return { cls: "broc-off", text: "occasionale" };
+    }
+
+    function formatBrocanteRecurrence(p) {
+      if (p.recurrence === "firstSunday") return "1° domenica del mese";
+      if (p.recurrence === "weeklySummer") return "Ogni " + (p.days||[]).map(d=>DAY_NAMES[d]).join("/") + " in estate";
+      if (p.recurrence === "shops") return "Negozi / permanente";
+      if (p.recurrence === "occasional") return "Date variabili — verifica agenda";
+      return formatMarketDays(p);
+    }
+
+
     function marketStatusBadge(p) {
       const now = parisNowParts();
       if (marketIsOpenNow(p, now)) return { cls: "mkt", text: "aperto ora" };
@@ -339,34 +412,30 @@
       const now = parisNowParts();
       if (marketDayFilter === null) marketDayFilter = now.day;
       const titleDay = marketDayFilter === "all" ? "settimana" : DAY_NAMES_LONG[marketDayFilter];
-      document.getElementById("marketTitle").textContent = `🛒 Mercati · ${titleDay}`;
+      document.getElementById("marketTitle").textContent = `🛒 Mercati & 🏺 Brocante · ${titleDay}`;
 
       const tabs = document.getElementById("marketDayTabs");
-      const tabDefs = [
-        { id: now.day, label: "Oggi" },
-        { id: (now.day + 1) % 7, label: "Domani" },
-        ...[0,1,2,3,4,5,6].map(d => ({ id: d, label: DAY_NAMES[d] })),
-        { id: "all", label: "Tutti" },
-      ];
-      // dedupe oggi/domani with weekday chips: show Oggi, Domani, then other days not equal
       const seen = new Set();
       const tabsClean = [];
-      for (const t of [{ id: now.day, label: `Oggi (${DAY_NAMES[now.day]})` },
-                       { id: (now.day + 1) % 7, label: `Domani (${DAY_NAMES[(now.day+1)%7]})` },
-                       ...[0,1,2,3,4,5,6].filter(d => d !== now.day && d !== (now.day+1)%7).map(d => ({ id: d, label: DAY_NAMES[d] })),
-                       { id: "all", label: "Settimana" }]) {
+      for (const t of [
+        { id: now.day, label: `Oggi (${DAY_NAMES[now.day]})` },
+        { id: (now.day + 1) % 7, label: `Domani (${DAY_NAMES[(now.day + 1) % 7]})` },
+        ...[0,1,2,3,4,5,6].filter(d => d !== now.day && d !== (now.day + 1) % 7).map(d => ({ id: d, label: DAY_NAMES[d] })),
+        { id: "all", label: "Settimana" },
+      ]) {
         const key = String(t.id);
         if (seen.has(key)) continue;
         seen.add(key);
         tabsClean.push(t);
       }
 
-      // which days have markets in dataset
       const daysWith = new Set();
-      PLACES.filter(p => p.cat === "market").forEach(p => (p.days || []).forEach(d => daysWith.add(d)));
+      PLACES.filter(p => p.cat === "market" || p.cat === "brocante").forEach(p => {
+        if (p.recurrence === "firstSunday") { daysWith.add(0); return; }
+        (p.days || []).forEach(d => daysWith.add(d));
+      });
 
       tabs.innerHTML = tabsClean.map(t => {
-        const active = marketDayFilter === t.id || (marketDayFilter === t.id);
         const has = t.id === "all" || daysWith.has(t.id);
         return `<button type="button" data-day="${t.id}" class="${marketDayFilter === t.id ? "active" : ""} ${has ? "has" : ""}">${t.label}</button>`;
       }).join("");
@@ -380,16 +449,29 @@
       });
 
       const list = document.getElementById("marketList");
-      let items = PLACES.filter(p => p.cat === "market");
-      if (marketDayFilter !== "all") {
-        items = items.filter(p => marketOpenOnDay(p, marketDayFilter, now.month));
+      const b = map.getBounds().pad(0.25);
+
+      function matchesDay(p) {
+        if (marketDayFilter === "all") return true;
+        if (p.cat === "market") return marketOpenOnDay(p, marketDayFilter, now.month);
+        if (p.cat === "brocante") return isBrocanteActiveOnDay(p, marketDayFilter, now.month);
+        return false;
       }
-      // sort: open now, then in view, then name
-      const b = map.getBounds().pad(0.2);
+
+      let items = PLACES.filter(p => (p.cat === "market" || p.cat === "brocante") && matchesDay(p));
+      // if category filtered off, still show in panel but dim? show all in panel always for planning
       items.sort((a, b2) => {
-        const ao = marketIsOpenNow(a, now) ? 0 : 1;
-        const bo = marketIsOpenNow(b2, now) ? 0 : 1;
-        if (ao !== bo) return ao - bo;
+        const rank = (p) => {
+          if (p.cat === "market" && marketIsOpenNow(p, now)) return 0;
+          if (p.cat === "brocante" && p.recurrence === "firstSunday" && now.day === 0 && isFirstSundayOfMonth()) return 0;
+          if (p.cat === "market" && marketOpenOnDay(p, now.day, now.month)) return 1;
+          if (p.cat === "brocante" && isBrocanteActiveOnDay(p, now.day, now.month)) return 1;
+          if (p.cat === "brocante" && p.recurrence === "shops") return 2;
+          return 3;
+        };
+        const ra = rank(a), rb = rank(b2);
+        if (ra !== rb) return ra - rb;
+        if (a.cat !== b2.cat) return a.cat === "market" ? -1 : 1;
         const av = b.contains([a.lat, a.lng]) ? 0 : 1;
         const bv = b.contains([b2.lat, b2.lng]) ? 0 : 1;
         if (av !== bv) return av - bv;
@@ -397,18 +479,28 @@
       });
 
       if (!items.length) {
-        list.innerHTML = `<p class="md" style="color:var(--muted);font-size:0.78rem">Nessun mercato tipico questo giorno${marketDayFilter === now.day && !isSummerMonth(now.month) ? " (alcuni solo in estate)" : ""}.</p>`;
+        list.innerHTML = `<p style="color:var(--muted);font-size:0.78rem">Nessun mercato/brocante tipico questo giorno.</p>`;
         return;
       }
 
       list.innerHTML = items.map(p => {
-        const open = marketIsOpenNow(p, now);
         const inView = b.contains([p.lat, p.lng]);
-        const days = formatMarketDays(p);
-        const season = p.season === "summer" ? " · solo lug–ago" : "";
-        return `<button type="button" class="market-card ${open ? "open-now" : ""}" data-lat="${p.lat}" data-lng="${p.lng}">
-          <div class="mt">${p.name.replace(/^🛒\\s*/, "")} ${open ? "· 🟢" : ""}</div>
-          <div class="mh">${days}${season} · ${p.hours || "mattina"}</div>
+        if (p.cat === "market") {
+          const open = marketIsOpenNow(p, now);
+          const days = formatMarketDays(p);
+          const season = p.season === "summer" ? " · solo lug–ago" : "";
+          return `<button type="button" class="market-card ${open ? "open-now" : ""}" data-lat="${p.lat}" data-lng="${p.lng}" data-cat="market">
+            <div class="mt">🛒 ${p.name.replace(/^🛒\s*/, "")} ${open ? "· 🟢" : ""}</div>
+            <div class="mh">${days}${season} · ${p.hours || "mattina"}</div>
+            <div class="md">${p.place || ""} ${inView ? "· in vista" : ""} · ${p.desc || ""}</div>
+          </button>`;
+        }
+        const rec = formatBrocanteRecurrence(p);
+        const badge = brocanteStatusBadge(p);
+        const hot = badge.cls === "broc" && badge.text.includes("oggi");
+        return `<button type="button" class="market-card brocante ${hot ? "open-now" : ""}" data-lat="${p.lat}" data-lng="${p.lng}" data-cat="brocante">
+          <div class="mt">🏺 ${p.name.replace(/^🏺\s*/, "")} ${hot ? "· 🟢" : ""}</div>
+          <div class="mh">${rec} · ${p.hours || ""}</div>
           <div class="md">${p.place || ""} ${inView ? "· in vista" : ""} · ${p.desc || ""}</div>
         </button>`;
       }).join("");
@@ -416,15 +508,21 @@
       list.querySelectorAll(".market-card").forEach(btn => {
         btn.addEventListener("click", () => {
           const lat = +btn.dataset.lat, lng = +btn.dataset.lng;
+          const cat = btn.dataset.cat;
           map.setView([lat, lng], 15);
-          const idx = PLACES.findIndex(p => p.lat === lat && p.lng === lng && p.cat === "market");
+          const idx = PLACES.findIndex(p => p.lat === lat && p.lng === lng && p.cat === cat);
           if (idx >= 0) {
+            if (!activeCats.has(cat)) {
+              activeCats.add(cat);
+              renderFilters();
+            }
             applyVisibility();
             setTimeout(() => markers[idx]?.openPopup(), 250);
           }
         });
       });
     }
+
 
 
     // ——— Time helpers ———
@@ -796,6 +894,9 @@
         if (p.cat === "market" && marketDayFilter !== "all" && marketDayFilter != null) {
           if (!marketOpenOnDay(p, marketDayFilter, nowP.month)) return;
         }
+        if (p.cat === "brocante" && marketDayFilter !== "all" && marketDayFilter != null) {
+          if (!isBrocanteActiveOnDay(p, marketDayFilter, nowP.month)) return;
+        }
         if (b.contains([p.lat, p.lng])) ids.add(i);
       });
       // always keep "you" if cat active
@@ -829,6 +930,12 @@
         if (marketIsOpenNow(p, now)) ring = "#22c55e";
         else if (marketOpenOnDay(p, now.day, now.month)) ring = "#86efac";
       }
+      if (p.cat === "brocante") {
+        const now = parisNowParts();
+        if (p.recurrence === "firstSunday" && now.day === 0 && isFirstSundayOfMonth()) ring = "#d97706";
+        else if (isBrocanteActiveOnDay(p, now.day, now.month)) ring = "#fbbf24";
+        else ring = "#b45309";
+      }
       const size = (p.priority || 2) === 1 ? 16 : 13;
       return L.divIcon({
         className: "",
@@ -860,6 +967,11 @@
         const season = p.season === "summer" ? "<br><small>Solo luglio–agosto</small>" : "";
         extra += `<div class="tide-box"><strong>${open ? "🟢 Aperto ora (indicativo)" : today ? "🟢 Oggi in calendario" : "📅 " + formatMarketDays(p)}</strong><br>
           ${p.hours || "mattina"}${season}<br><small>${p.place || ""}</small></div>`;
+      }
+      if (p.cat === "brocante") {
+        const st = brocanteStatusBadge(p);
+        extra += `<div class="tide-box"><strong>🏺 ${formatBrocanteRecurrence(p)}</strong><br>
+          ${p.hours || ""}<br><small>${p.place || ""} · ${st.text}</small></div>`;
       }
       return `<div class="popup"><h3>${p.name}</h3><p>${p.desc}</p>${extra}
         <a href="${gmapsUrl(p)}" target="_blank" rel="noopener">Google Maps →</a></div>`;
@@ -934,7 +1046,26 @@
           applyVisibility();
         });
       });
+      const on = document.getElementById("btnAllOn");
+      const off = document.getElementById("btnAllOff");
+      if (on && !on._bound) {
+        on._bound = true;
+        on.addEventListener("click", () => {
+          categories.forEach(c => activeCats.add(c.id));
+          renderFilters();
+          applyVisibility();
+        });
+      }
+      if (off && !off._bound) {
+        off._bound = true;
+        off.addEventListener("click", () => {
+          activeCats.clear();
+          renderFilters();
+          applyVisibility();
+        });
+      }
     }
+
     function renderZoneChips() {
       const el = document.getElementById("zoneChips");
       el.innerHTML = ZONES.map(z =>

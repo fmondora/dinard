@@ -989,5 +989,184 @@
     "hours": "mattina",
     "season": "all",
     "place": "Matignon"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Foire à la Brocante Dinard",
+    "lat": 48.6318,
+    "lng": -2.0583,
+    "priority": 1,
+    "desc": "Professionisti (~50). Esplanade de la Halle / Place Crolard.",
+    "days": [
+      0
+    ],
+    "recurrence": "firstSunday",
+    "hours": "9:00–19:00",
+    "season": "all",
+    "place": "Dinard — Esplanade des Halles"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Brocante Solidor (Saint-Servan)",
+    "lat": 48.6355,
+    "lng": -2.0205,
+    "priority": 1,
+    "desc": "Esplanade du Commandant Menguy, Saint-Servan. Spesso professionisti.",
+    "days": [
+      2
+    ],
+    "recurrence": "weeklySummer",
+    "hours": "8:00–17:30",
+    "season": "summer",
+    "place": "Saint-Malo — Saint-Servan / Solidor"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Vide-greniers Saint-Lunaire (Marais)",
+    "lat": 48.6335,
+    "lng": -2.105,
+    "priority": 2,
+    "desc": "Parking du Marais. Date variabili (estate) — verifica agenda locale.",
+    "days": [
+      6,
+      0
+    ],
+    "recurrence": "occasional",
+    "hours": "9:00–17:30",
+    "season": "summer",
+    "place": "Saint-Lunaire — Parking du Marais"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Vide-greniers Cancale centre",
+    "lat": 48.6768,
+    "lng": -1.852,
+    "priority": 2,
+    "desc": "Centro Cancale, date estive variabili (es. mercoledì in agosto).",
+    "days": [
+      3
+    ],
+    "recurrence": "occasional",
+    "hours": "7:00–18:00 (quando organizzato)",
+    "season": "summer",
+    "place": "Cancale centre"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Brocante / antiquaires Intra-Muros",
+    "lat": 48.6492,
+    "lng": -2.0248,
+    "priority": 2,
+    "desc": "Negozi d'antiquariato e déballages occasionali nelle mura.",
+    "days": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "recurrence": "shops",
+    "hours": "orari negozi (chiusure variabili)",
+    "season": "all",
+    "place": "Saint-Malo Intra-Muros"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Antiquaires & galerie Dinard",
+    "lat": 48.6325,
+    "lng": -2.0555,
+    "priority": 2,
+    "desc": "Boutique d'antiquariato e gallerie in centro (bd Féart / zone shopping).",
+    "days": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "recurrence": "shops",
+    "hours": "pomeriggio / orari negozi",
+    "season": "all",
+    "place": "Dinard centre"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Brocante Dinan (occasionale)",
+    "lat": 48.4555,
+    "lng": -2.0475,
+    "priority": 2,
+    "desc": "Città medievale: brocante e vide-greniers su agenda (spesso fine settimana).",
+    "days": [
+      0,
+      6
+    ],
+    "recurrence": "occasional",
+    "hours": "mattina–pomeriggio quando organizzato",
+    "season": "all",
+    "place": "Dinan"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Vide-greniers La Richardais",
+    "lat": 48.608,
+    "lng": -2.035,
+    "priority": 3,
+    "desc": "Comune vicino al barrage — date variabili.",
+    "days": [
+      0
+    ],
+    "recurrence": "occasional",
+    "hours": "quando organizzato",
+    "season": "all",
+    "place": "La Richardais"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Vide-greniers Saint-Briac",
+    "lat": 48.62,
+    "lng": -2.133,
+    "priority": 3,
+    "desc": "Date estive variabili — controlla manifesto locale.",
+    "days": [
+      0,
+      6
+    ],
+    "recurrence": "occasional",
+    "hours": "quando organizzato",
+    "season": "summer",
+    "place": "Saint-Briac-sur-Mer"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Brocante Saint-Cast (occasionale)",
+    "lat": 48.63,
+    "lng": -2.255,
+    "priority": 3,
+    "desc": "Stazione balneare — vide-greniers su agenda estiva.",
+    "days": [
+      0,
+      6
+    ],
+    "recurrence": "occasional",
+    "hours": "quando organizzato",
+    "season": "summer",
+    "place": "Saint-Cast-le-Guildo"
+  },
+  {
+    "cat": "brocante",
+    "name": "🏺 Marché à la brocante Dol-de-Bretagne",
+    "lat": 48.54983,
+    "lng": -1.754257,
+    "priority": 3,
+    "desc": "A volte abbinato al mercato o eventi in centro.",
+    "days": [
+      6
+    ],
+    "recurrence": "occasional",
+    "hours": "mattina (eventi)",
+    "season": "all",
+    "place": "Dol-de-Bretagne"
   }
 ]
