@@ -349,46 +349,6 @@
     "priority": 2
   },
   {
-    "cat": "market",
-    "name": "Halles & Marché Dinard",
-    "lat": 48.632046,
-    "lng": -2.058039,
-    "desc": "Halles mattina; mercato mar/gio/sab.",
-    "priority": 1
-  },
-  {
-    "cat": "market",
-    "name": "Marché Saint-Énogat",
-    "lat": 48.636,
-    "lng": -2.067966,
-    "desc": "Solo lug–ago mercoledì mattina.",
-    "priority": 3
-  },
-  {
-    "cat": "market",
-    "name": "Marché Intra-Muros St-Malo",
-    "lat": 48.647982,
-    "lng": -2.025594,
-    "desc": "Mar e ven mattina (verifica).",
-    "priority": 1
-  },
-  {
-    "cat": "market",
-    "name": "Marché Cancale",
-    "lat": 48.6768,
-    "lng": -1.852,
-    "desc": "Domenica mattina, centro.",
-    "priority": 1
-  },
-  {
-    "cat": "market",
-    "name": "Marché Dol-de-Bretagne",
-    "lat": 48.54983,
-    "lng": -1.754257,
-    "desc": "Sabato mattina, centro medievale.",
-    "priority": 2
-  },
-  {
     "cat": "food",
     "name": "Pourquoi Pas ★ (Dinard)",
     "lat": 48.634447,
@@ -803,5 +763,231 @@
     "lng": -1.911222,
     "desc": "Verso Cancale.",
     "priority": 2
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Halles de Dinard (coperto)",
+    "lat": 48.632046,
+    "lng": -2.058039,
+    "priority": 1,
+    "desc": "18 banchi al coperto, Place Crolard / Halles de la Concorde.",
+    "days": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "hours": "7:30–13:30",
+    "hoursNote": "Lunedì ridotto fuori vacanze scolastiche",
+    "season": "all",
+    "place": "Dinard — Halles"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Dinard (esterno)",
+    "lat": 48.6318,
+    "lng": -2.0583,
+    "priority": 1,
+    "desc": "Grande mercato sull'esplanade (fino a ~300 banchi in estate).",
+    "days": [
+      2,
+      4,
+      6
+    ],
+    "hours": "set–giu 9:00–12:30 (sab→13:00) · lug–ago 8:30–14:00",
+    "season": "all",
+    "place": "Dinard — Place Crolard"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Saint-Énogat",
+    "lat": 48.636,
+    "lng": -2.067966,
+    "priority": 2,
+    "desc": "Mercato estivo Place du Calvaire / Rue de Saint-Lunaire.",
+    "days": [
+      3
+    ],
+    "hours": "9:00–12:30",
+    "season": "summer",
+    "place": "Dinard — Saint-Énogat"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché St-Malo Intra-Muros",
+    "lat": 48.647982,
+    "lng": -2.025594,
+    "priority": 1,
+    "desc": "Dentro le mura, zona Place de la Poissonnerie.",
+    "days": [
+      2,
+      5
+    ],
+    "hours": "mattina (~8:00–13:00)",
+    "season": "all",
+    "place": "Saint-Malo Intra-Muros"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Paramé (St-Malo)",
+    "lat": 48.6585,
+    "lng": -1.9865,
+    "priority": 2,
+    "desc": "Mercato di Paramé (verifica orari stagionali).",
+    "days": [
+      3
+    ],
+    "hours": "mattina",
+    "season": "all",
+    "place": "Saint-Malo — Paramé"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Saint-Servan",
+    "lat": 48.6355,
+    "lng": -2.0185,
+    "priority": 2,
+    "desc": "Quartiere Saint-Servan.",
+    "days": [
+      1
+    ],
+    "hours": "mattina",
+    "season": "all",
+    "place": "Saint-Malo — Saint-Servan"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Cancale",
+    "lat": 48.6768,
+    "lng": -1.852,
+    "priority": 1,
+    "desc": "Centro Cancale — abbinabile alle ostriche del porto.",
+    "days": [
+      0
+    ],
+    "hours": "mattina (~8:30–13:00)",
+    "season": "all",
+    "place": "Cancale"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché aux Huîtres Cancale",
+    "lat": 48.670769,
+    "lng": -1.851314,
+    "priority": 1,
+    "desc": "8 produttori, Port de la Houle. Tutti i giorni, degustazione sul posto.",
+    "days": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "hours": "~9:00–17:30 (estate spesso più tardi)",
+    "season": "all",
+    "place": "Cancale — Port de la Houle"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Dol-de-Bretagne",
+    "lat": 48.54983,
+    "lng": -1.754257,
+    "priority": 2,
+    "desc": "Centro medievale.",
+    "days": [
+      6
+    ],
+    "hours": "8:00–12:30",
+    "season": "all",
+    "place": "Dol-de-Bretagne"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Dinan",
+    "lat": 48.4555,
+    "lng": -2.0475,
+    "priority": 2,
+    "desc": "Place Duguesclin / Champ Clos — uno dei più belli.",
+    "days": [
+      4
+    ],
+    "hours": "8:00–13:00",
+    "season": "all",
+    "place": "Dinan"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Saint-Lunaire",
+    "lat": 48.6355,
+    "lng": -2.108,
+    "priority": 2,
+    "desc": "Vicino alla Grande Plage.",
+    "days": [
+      2
+    ],
+    "hours": "mattina (stagione / verifica)",
+    "season": "all",
+    "place": "Saint-Lunaire"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Saint-Cast",
+    "lat": 48.63,
+    "lng": -2.255,
+    "priority": 2,
+    "desc": "Stazione di Saint-Cast-le-Guildo.",
+    "days": [
+      5
+    ],
+    "hours": "mattina",
+    "season": "all",
+    "place": "Saint-Cast-le-Guildo"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Saint-Briac",
+    "lat": 48.62,
+    "lng": -2.133,
+    "priority": 3,
+    "desc": "Villaggio di Saint-Briac-sur-Mer.",
+    "days": [
+      0
+    ],
+    "hours": "mattina (stagione)",
+    "season": "summer",
+    "place": "Saint-Briac"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Saint-Jacut",
+    "lat": 48.598,
+    "lng": -2.19,
+    "priority": 2,
+    "desc": "Penisola di Saint-Jacut-de-la-Mer.",
+    "days": [
+      5
+    ],
+    "hours": "mattina",
+    "season": "all",
+    "place": "Saint-Jacut-de-la-Mer"
+  },
+  {
+    "cat": "market",
+    "name": "🛒 Marché Matignon",
+    "lat": 48.5965,
+    "lng": -2.291,
+    "priority": 3,
+    "desc": "Verso Cap Fréhel.",
+    "days": [
+      3
+    ],
+    "hours": "mattina",
+    "season": "all",
+    "place": "Matignon"
   }
 ]
