@@ -1,0 +1,32 @@
+# Contesto ospite — l'agente lo considera sempre vero
+soggiorno:
+  citta: Dinard
+  lat: 48.618866
+  lng: -2.037716
+  zona: "Est Dinard / Rance (lato Vicomté–La Richardais)"
+  note: "Hub notturno a Dinard. Itinerari a stella: si esce e si rientra la sera."
+
+mezzi:
+  piedi: true
+  bici:
+    si: true
+    tipo: city_or_hybrid
+    portabici_auto: false   # MAI proporre auto+bici in un'altra destinazione
+  auto:
+    si: true
+    alimentazione: elettrica
+    autonomia_km_realistica: 250
+    non_scendere_sotto_pct: 20
+    preferenza_ricarica:
+      - type2_destinazione
+      - ccs_rapida
+
+regole_logistica:
+  - "0–3 km da base: piedi o bici"
+  - "3–15 km: bici se meteo ok e vento gestibile; EV se piove/sera/stanchi"
+  - "15+ km: solo EV + piedi sul posto (no bici in auto)"
+  - "St-Malo Intra-Muros: preferire ferry a piedi da Dinard se non serve bagagliaio"
+  - "Mont-Saint-Michel / Cap Fréhel / Cancale day trip: EV, bici resta a Dinard"
+
+lingua: it
+tono: diretto_locale

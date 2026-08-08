@@ -25,3 +25,12 @@ Mappa interattiva: **Saint-Jacut / Cap Fréhel** → Dinard → **Saint-Malo** �
 ```bash
 git add -A && git commit -m "update" && git push
 ```
+
+
+## Guida agente (Émeraude)
+
+- **In mappa:** pulsante 🦞 Guida (chat) — marea/meteo live + logistica bici/EV
+- **In Grok:** skill `/emeraude-guide` (`.grok/skills/emeraude-guide/`)
+- Contesto ospite: `agent/user_context.yaml` (Dinard, bici senza portabici, auto elettrica)
+- Knowledge: `agent/knowledge/*.md`
+- Engine: `agent/guide_engine.js`

@@ -1,0 +1,255 @@
+[
+  {
+    "q": "Plage de la Manchette, Saint-Jacut-de-la-Mer",
+    "lat": 48.5925108,
+    "lng": -2.1836148,
+    "display": "Plage de la Manchette, La Ville Neuve, Saint-Jacut-de-la-Mer, Dinan, Côtes-d'Armor, Bretagne, France"
+  },
+  {
+    "q": "Plage du Rougeret, Saint-Jacut-de-la-Mer",
+    "lat": 48.6066857,
+    "lng": -2.1876555,
+    "display": "Plage du Rougeret, Le Rougeret, Saint-Jacut-de-la-Mer, Dinan, Côtes-d'Armor, Bretagne, France métrop"
+  },
+  {
+    "q": "Port de Saint-Jacut-de-la-Mer",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Cap Fréhel",
+    "lat": 48.6813901,
+    "lng": -2.3189944,
+    "display": "Cap Fréhel, Plévenon, Dinan, Côtes-d'Armor, Bretagne, France métropolitaine, 22240, France"
+  },
+  {
+    "q": "Fort La Latte",
+    "lat": 48.6682033,
+    "lng": -2.2848699,
+    "display": "Fort la Latte, Rue de La Latte, La Roche Lessoie, Plévenon, Dinan, Côtes-d'Armor, Bretagne, France m"
+  },
+  {
+    "q": "Plage de Sables-d'Or-les-Pins",
+    "lat": 48.6444785,
+    "lng": -2.4072779,
+    "display": "Grève de Minieu, Sables-d'Or-les-Pins, Fréhel, Dinan, Côtes-d'Armor, Bretagne, France métropolitaine"
+  },
+  {
+    "q": "Plage de Saint-Briac-sur-Mer",
+    "lat": 48.6265114,
+    "lng": -2.1459711,
+    "display": "Plage de la Petite Salinette, La Ville Marqué, Saint-Briac-sur-Mer, Saint-Malo, Ille-et-Vilaine, Bre"
+  },
+  {
+    "q": "Port de Saint-Briac-sur-Mer",
+    "lat": 48.6325725,
+    "lng": -2.1397447,
+    "display": "Plage de Port Hue, La Garde, Saint-Briac-sur-Mer, Saint-Malo, Ille-et-Vilaine, Bretagne, France métr"
+  },
+  {
+    "q": "Plage de Lancieux",
+    "lat": 48.5927449,
+    "lng": -2.1640929,
+    "display": "Plage de la Roche Morin, La Briantais, Lancieux, Dinan, Côtes-d'Armor, Bretagne, France métropolitai"
+  },
+  {
+    "q": "Plage de Longchamp, Saint-Lunaire",
+    "lat": 48.6368618,
+    "lng": -2.1207496,
+    "display": "Plage de Longchamp, Le Tertre aux Scènes, Saint-Lunaire, Saint-Malo, Ille-et-Vilaine, Bretagne, Fran"
+  },
+  {
+    "q": "Grande Plage du Sillon, Saint-Malo",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Plage de Bon Secours, Saint-Malo",
+    "lat": 48.6487155,
+    "lng": -2.0292609,
+    "display": "Plage de Bon Secours, Intra-Muros, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 354"
+  },
+  {
+    "q": "Plage de l'Eventail, Saint-Malo",
+    "lat": 48.6527595,
+    "lng": -2.0224227,
+    "display": "Plage de l'Éventail, Intra-Muros, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 3540"
+  },
+  {
+    "q": "Plage de Rochebonne, Saint-Malo",
+    "lat": 48.6661011,
+    "lng": -1.9931244,
+    "display": "Plage de Rochebonne, Paramé, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 35400, Fr"
+  },
+  {
+    "q": "Plage du Mole, Saint-Malo",
+    "lat": 48.6450854,
+    "lng": -2.0318808,
+    "display": "Plage du Môle, Intra-Muros, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 35400, Fra"
+  },
+  {
+    "q": "Fort National, Saint-Malo",
+    "lat": 48.6548668,
+    "lng": -2.0232707,
+    "display": "Fort National, Porte Saint Thomas, Intra-Muros, Saint-Malo, Ille-et-Vilaine, Bretagne, France métrop"
+  },
+  {
+    "q": "Grand Bé, Saint-Malo",
+    "lat": 48.6522606,
+    "lng": -2.0332584,
+    "display": "Le Grand Bé, Intra-Muros, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 35400, Franc"
+  },
+  {
+    "q": "Petit Bé, Saint-Malo",
+    "lat": 48.6524856,
+    "lng": -2.0384335,
+    "display": "Le Petit Bé, Intra-Muros, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 35400, Franc"
+  },
+  {
+    "q": "Tour Solidor, Saint-Malo",
+    "lat": 48.634031,
+    "lng": -2.0260692,
+    "display": "Tour Solidor, Cale Solidor, Alet, Saint-Servan - Solidor, Saint-Malo, Ille-et-Vilaine, Bretagne, Fra"
+  },
+  {
+    "q": "Cathédrale Saint-Vincent, Saint-Malo",
+    "lat": 48.6494895,
+    "lng": -2.0255401,
+    "display": "Cathédrale Saint-Vincent, Rue Guillaume Le Gouverneur, Intra-Muros, Saint-Malo, Ille-et-Vilaine, Bre"
+  },
+  {
+    "q": "Marché de Saint-Malo Intra-Muros",
+    "lat": 48.6479819,
+    "lng": -2.0255944,
+    "display": "Place du Marché aux Légumes, Intra-Muros, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitai"
+  },
+  {
+    "q": "Rochers sculptés de Rothéneuf",
+    "lat": 48.6867257,
+    "lng": -1.968229,
+    "display": "Les Rochers sculptés, Chemin des Rochers Sculptés, Rothéneuf, Rothéneuf - Le Pont, Saint-Malo, Ille-"
+  },
+  {
+    "q": "Plage du Havre de Rothéneuf",
+    "lat": 48.6810143,
+    "lng": -1.9563676,
+    "display": "Plage du Havre, La Ville ès Offrans, Saint-Coulomb, Saint-Malo, Ille-et-Vilaine, Bretagne, France mé"
+  },
+  {
+    "q": "Pointe du Grouin, Cancale",
+    "lat": 48.7097348,
+    "lng": -1.8441687,
+    "display": "Pointe du Grouin, Port Mer, Cancale, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 3"
+  },
+  {
+    "q": "Plage du Port Mer, Cancale",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Plage de Port-Pican, Cancale",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Plage de la Fenêtre, Cancale",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Port de la Houle, Cancale",
+    "lat": 48.670334,
+    "lng": -1.856154,
+    "display": "Port de la Houle, Quai Duguay-Trouin, Terrelabouët, Cancale, Saint-Malo, Ille-et-Vilaine, Bretagne, "
+  },
+  {
+    "q": "Église Saint-Méen, Cancale",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Mont Saint-Michel",
+    "lat": 48.6359541,
+    "lng": -1.51146,
+    "display": "Mont Saint-Michel, Le Mont-Saint-Michel, Avranches, Manche, Normandie, France métropolitaine, 50170,"
+  },
+  {
+    "q": "La Caserne, Beauvoir",
+    "lat": 48.6089508,
+    "lng": -1.510066,
+    "display": "Route de la Caserne, Les Mares, Beauvoir, Avranches, Manche, Normandie, France métropolitaine, 50170"
+  },
+  {
+    "q": "Genêts, baie Mont Saint-Michel",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Plage de Saint-Jean-le-Thomas",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Hirel",
+    "lat": 48.606156,
+    "lng": -1.8019488,
+    "display": "Hirel, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 35120, France"
+  },
+  {
+    "q": "Cherrueix",
+    "lat": 48.6060853,
+    "lng": -1.7110157,
+    "display": "Cherrueix, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 35120, France"
+  },
+  {
+    "q": "Dol-de-Bretagne",
+    "lat": 48.5498295,
+    "lng": -1.754257,
+    "display": "Dol-de-Bretagne, Saint-Malo, Ille-et-Vilaine, Bretagne, France métropolitaine, 35120, France"
+  },
+  {
+    "q": "Plage de Saint-Benoît-des-Ondes",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Plage de Dinard Port Blanc",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Plage des Quatre Vaux, Saint-Lunaire",
+    "lat": null,
+    "lng": null
+  },
+  {
+    "q": "Plage de la Garde Guérin, Saint-Briac",
+    "lat": 48.6346854,
+    "lng": -2.1359385,
+    "display": "Plage de la Garde Guérin, La Garde, Saint-Briac-sur-Mer, Saint-Malo, Ille-et-Vilaine, Bretagne, Fran"
+  },
+  {
+    "q": "Plage de Saint-Cast-le-Guildo",
+    "lat": 48.6444422,
+    "lng": -2.2573798,
+    "display": "Plage de la Mare, Le Port-Jacquet, Saint-Cast-le-Guildo, Dinan, Côtes-d'Armor, Bretagne, France métr"
+  },
+  {
+    "q": "Port de Saint-Cast-le-Guildo",
+    "lat": 48.6408354,
+    "lng": -2.2449483,
+    "display": "Port d'Armor, Rue du Sémaphore, Le Port-Jacquet, Saint-Cast-le-Guildo, Dinan, Côtes-d'Armor, Bretagn"
+  },
+  {
+    "q": "Plage de Pen Guen, Saint-Cast",
+    "lat": 48.6161051,
+    "lng": -2.2386954,
+    "display": "Plage de Pen Guen, Saint-Cast-le-Guildo, Dinan, Côtes-d'Armor, Bretagne, France métropolitaine, 2238"
+  },
+  {
+    "q": "Pointe de la Garde, Saint-Cast",
+    "lat": 48.6257407,
+    "lng": -2.2381886,
+    "display": "Pointe de la Garde, Saint-Cast-le-Guildo, Dinan, Côtes-d'Armor, Bretagne, France métropolitaine, 223"
+  }
+]
