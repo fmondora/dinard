@@ -34,3 +34,5 @@ git add -A && git commit -m "update" && git push
 - Contesto ospite: `agent/user_context.yaml` (Dinard, bici senza portabici, auto elettrica)
 - Knowledge: `agent/knowledge/*.md`
 - Engine: `agent/guide_engine.js`
+
+- **Ciclabili:** filtro 🚴 sulla mappa (Voie Verte Dinard→Dinan + costa Lunaire)
