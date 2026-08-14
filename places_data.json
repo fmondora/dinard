@@ -1168,5 +1168,23 @@
     "hours": "mattina (eventi)",
     "season": "all",
     "place": "Dol-de-Bretagne"
+  },
+  {
+    "cat": "market",
+    "name": "🥬 Ferme de la Raudais (Trélat)",
+    "lat": 48.4991364,
+    "lng": -2.0731183,
+    "priority": 1,
+    "desc": "Vendita diretta verdura, frutta e prodotti locali. Consiglio della cidrerie Jouny.",
+    "days": [
+      5
+    ],
+    "hours": "16:30–19:00",
+    "openFrom": 990,
+    "openTo": 1140,
+    "season": "all",
+    "place": "8 rue de la Rabine, Trélat — 22100 Taden",
+    "source": "Cidrerie Distillerie Jouny",
+    "tel": "02 96 84 54 69"
   }
 ]
