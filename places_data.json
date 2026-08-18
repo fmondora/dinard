@@ -1170,6 +1170,23 @@
     "place": "Dol-de-Bretagne"
   },
   {
+    "cat": "shop",
+    "name": "🍎 Cidrerie Distillerie Jouny",
+    "lat": 48.5652588,
+    "lng": -2.0592941,
+    "priority": 1,
+    "desc": "Sidro e distillati. Contatti: Arnaud 06 64 25 11 73, Elsa 06 01 41 12 70. Email contact@cidreriedistilleriejouny.fr — chiamare/WhatsApp se chiuso.",
+    "place": "La Brousse, Voie Verte — 22490 Tréméreuc",
+    "tel": "06 64 25 11 73",
+    "tel2": "06 01 41 12 70",
+    "email": "contact@cidreriedistilleriejouny.fr",
+    "contacts": {
+      "Arnaud Jouny": "06 64 25 11 73",
+      "Elsa Jouny": "06 01 41 12 70"
+    },
+    "season": "all"
+  },
+  {
     "cat": "market",
     "name": "🥬 Ferme de la Raudais (Trélat)",
     "lat": 48.4991364,

@@ -21,7 +21,7 @@
     ev: `Colonnine: Halles Dinard, Barrage Rance, Power Dot/IZIVIA St-Malo, St-Méloir (verso Cancale), Ionity Plouër, DRIVECO St-Briac. Non scendere sotto 20%.`,
     resto: `Local: huîtres in piedi Cancale, halles Dinard, crêperie/brasserie fuori cartolina, Café Plage Énogat, La Passerelle, La Vallée. Special: Didier Méril, Pourquoi Pas ★ (non come "dove mangiano sempre i locali").`,
     rando: `Corte: Clair de Lune, Moulinet, Vicomté, remparts. Mezza: GR34 Dinard–Lunaire, Grouin (EV+piedi), Fréhel–La Latte (EV+piedi), Grand Bé a bassa. Huîtres: balade parcs a bassa marea + marché Houle.`,
-    locali_jouny: `Consiglio Jouny: Ferme de la Raudais a Trélat (Taden), ven 16:30–19:00, verdura/frutta/prodotti locali. ~20 min EV verso Dinan.`,
+    locali_jouny: `Cidrerie Jouny (Tréméreuc, sulla V42): Arnaud 06 64 25 11 73, Elsa 06 01 41 12 70, contact@cidreriedistilleriejouny.fr — WhatsApp/chiamare se chiuso. Consigliano Ferme de la Raudais (Trélat/Taden) ven 16:30–19:00.`,
     eventi: `Brocante Dinard = 1° domenica del mese. Mercati per giorno (mappa). Solidor martedì agosto. Balade huîtres = evento/OT + marea, non GR fisso. Vide-greniers occasionali: verifica manifesto.`,
     naturiste: `Fourberie St-Lunaire: tollerato, vicino in bici/EV corto. Chevrets St-Coulomb: EV ~25–30 min.`,
   };
