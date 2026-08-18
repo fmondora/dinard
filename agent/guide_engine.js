@@ -22,7 +22,7 @@
     resto: `Local: huîtres in piedi Cancale, halles Dinard, crêperie/brasserie fuori cartolina, Café Plage Énogat, La Passerelle, La Vallée. Special: Didier Méril, Pourquoi Pas ★ (non come "dove mangiano sempre i locali").`,
     rando: `Corte: Clair de Lune, Moulinet, Vicomté, remparts. Mezza: GR34 Dinard–Lunaire, Grouin (EV+piedi), Fréhel–La Latte (EV+piedi), Grand Bé a bassa. Huîtres: balade parcs a bassa marea + marché Houle.`,
     locali_jouny: `Cidrerie Jouny (Tréméreuc, sulla V42): Arnaud 06 64 25 11 73, Elsa 06 01 41 12 70, contact@cidreriedistilleriejouny.fr — WhatsApp/chiamare se chiuso. Consigliano Ferme de la Raudais (Trélat/Taden) ven 16:30–19:00.`,
-    contatti: `Laurence: 14 Le Bourg, Plessix-Balisson, 22650 Beaussais-sur-Mer (~15 km / 20 min EV). Pranzo/incontro ago 2026. Zona Saint-Jacut / baie de Beaussais.`,
+    contatti: `Laurence: 14 Le Bourg, Plessix-Balisson, 22650 Beaussais-sur-Mer. Compagno Christophe Ballan — Galerie des Marins, 4 bis rue du Châtelet, Saint-Jacut-de-la-Mer (06 40 92 10 38).`,
     eventi: `Brocante Dinard = 1° domenica del mese. Mercati per giorno (mappa). Solidor martedì agosto. Balade huîtres = evento/OT + marea, non GR fisso. Vide-greniers occasionali: verifica manifesto.`,
     naturiste: `Fourberie St-Lunaire: tollerato, vicino in bici/EV corto. Chevrets St-Coulomb: EV ~25–30 min.`,
   };

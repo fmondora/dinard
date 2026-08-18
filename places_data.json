@@ -1210,9 +1210,24 @@
     "lat": 48.5376254,
     "lng": -2.1414431,
     "priority": 1,
-    "desc": "Contatto locale (pranzo ago 2026). Beaussais-sur-Mer; vicino Saint-Jacut / baie de Beaussais.",
+    "desc": "Laurence & Christophe (pranzo ago 2026). Lui: Galerie des Marins, Saint-Jacut.",
     "place": "14 Le Bourg, Plessix-Balisson — 22650 Beaussais-sur-Mer",
     "contact": "Laurence",
-    "season": "all"
+    "season": "all",
+    "partner": "Christophe Ballan — Galerie des Marins"
+  },
+  {
+    "cat": "shop",
+    "name": "🎨 Galerie des Marins (Christophe Ballan)",
+    "lat": 48.5984618,
+    "lng": -2.1879934,
+    "priority": 1,
+    "desc": "Galleria d'arte a Saint-Jacut. Compagno di Laurence (Plessix-Balisson). Tel 06 40 92 10 38.",
+    "place": "4 bis rue du Châtelet — 22750 Saint-Jacut-de-la-Mer",
+    "contact": "Christophe Ballan",
+    "tel": "06 40 92 10 38",
+    "email": "lagaleriedesmarins@gmail.com",
+    "web": "https://www.lagaleriedesmarins.fr/",
+    "season": "summer"
   }
 ]
