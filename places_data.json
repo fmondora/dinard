@@ -1203,5 +1203,16 @@
     "place": "8 rue de la Rabine, Trélat — 22100 Taden",
     "source": "Cidrerie Distillerie Jouny",
     "tel": "02 96 84 54 69"
+  },
+  {
+    "cat": "center",
+    "name": "🏠 Laurence — 14 Le Bourg (Plessix-Balisson)",
+    "lat": 48.5376254,
+    "lng": -2.1414431,
+    "priority": 1,
+    "desc": "Contatto locale (pranzo ago 2026). Beaussais-sur-Mer; vicino Saint-Jacut / baie de Beaussais.",
+    "place": "14 Le Bourg, Plessix-Balisson — 22650 Beaussais-sur-Mer",
+    "contact": "Laurence",
+    "season": "all"
   }
 ]

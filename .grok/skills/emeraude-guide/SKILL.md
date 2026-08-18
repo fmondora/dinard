@@ -36,6 +36,8 @@ Directory `agent/knowledge/`:
 | `ev_playbook.md` | destinazioni >15 km |
 | `randonnees.md` | camminate / GR34 |
 | `resto_locals.md` | dove mangiare “local” |
+| `prodotti_locali.md` | sidro Jouny, ferme, vendita diretta |
+| `contatti.md` | persone incontrate (es. Laurence a Plessix-Balisson) |
 | `evenements.md` | brocante, huîtres, festival |
 | `spiagge.md` | profili spiaggia |
 
