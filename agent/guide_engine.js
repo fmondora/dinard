@@ -24,7 +24,7 @@
     locali_jouny: `Cidrerie Jouny (Tréméreuc, sulla V42): Arnaud 06 64 25 11 73, Elsa 06 01 41 12 70, contact@cidreriedistilleriejouny.fr — WhatsApp/chiamare se chiuso. Consigliano Ferme de la Raudais (Trélat/Taden) ven 16:30–19:00.`,
     contatti: `Laurence: 14 Le Bourg, Plessix-Balisson, 22650 Beaussais-sur-Mer. Compagno Christophe Ballan — Galerie des Marins, 4 bis rue du Châtelet, Saint-Jacut-de-la-Mer (06 40 92 10 38).`,
     eventi: `Brocante Dinard = 1° domenica del mese. Mercati per giorno (mappa). Solidor martedì agosto. Balade huîtres = evento/OT + marea, non GR fisso. Vide-greniers occasionali: verifica manifesto.`,
-    naturiste: `Fourberie St-Lunaire: tollerato, vicino in bici/EV corto. Chevrets St-Coulomb: EV ~25–30 min.`,
+    naturiste: `Fourberie St-Lunaire: tollerato, vicino in bici/EV corto. Chevrets St-Coulomb: EV ~25–30 min. Plage du Verger (Cancale): metà naturista (lato est), EV ~30–35 min.`,
   };
 
   const DAY_NAMES = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
@@ -169,7 +169,7 @@
     const t = text.toLowerCase();
     if (/marea|alta marea|bassa marea|coeff/.test(t)) return "tide";
     if (/meteo|piove|tempo|vento|sole|forecast/.test(t)) return "weather";
-    if (/nudis|naturis|fourberie|chevrets/.test(t)) return "nude";
+    if (/nudis|naturis|fourberie|chevrets|verger/.test(t)) return "nude";
     if (/huitre|ostrich|cancale|gourin|parcs? à/.test(t)) return "oyster";
     if (/mang|ristor|cena|pranzo|crêp|crepe|local|fame/.test(t)) return "food";
     if (/mercat|brocant|vide.?grenier|antiqu/.test(t)) return "market";
@@ -261,7 +261,7 @@
         lines.push(KNOWLEDGE.naturiste);
         lines.push("");
         lines.push(listPois(searchPlaces({ cat: "nude" })));
-        lines.push(`\nMezzo: Fourberie → ${modeFor(8, { wind, rain })}; Chevrets → **EV** (niente bici in auto).`);
+        lines.push(`\nMezzo: Fourberie → ${modeFor(8, { wind, rain })}; Chevrets / Verger (Cancale) → **EV** (niente bici in auto).`);
         break;
       }
       case "oyster": {
